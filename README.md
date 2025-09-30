@@ -1,4 +1,4 @@
-# 🛺 Tricycle Fare Optimizer for Tagum City
+# 🛺 Tricycle Fare Optimizer for Tagum City (Machine Learning Project)
 
 A comprehensive web application that predicts tricycle fares in Tagum City using a Random Forest machine learning model, interactive mapping, and real-time route calculation.
 
