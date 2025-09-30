@@ -1,0 +1,141 @@
+Tricycle Fare Optimizer - Project Structure
+=============================================
+
+Main Project Files:
+-------------------
+ml/
+├── index.html                     # Main frontend HTML page
+├── style.css                      # Responsive CSS styling
+├── app.js                         # Frontend JavaScript application
+├── vercel.json                    # Vercel deployment configuration
+├── .gitignore                     # Git ignore rules
+│
+├── README.md                      # Comprehensive documentation
+├── QUICKSTART.md                  # Quick start guide
+├── PROJECT_SUMMARY.md             # Project deliverables summary
+├── STRUCTURE.txt                  # This file - project structure
+├── LICENSE                        # MIT License
+│
+├── setup.bat                      # Windows setup script
+├── setup.sh                       # Linux/Mac setup script (chmod +x first)
+├── train_model.py                 # Model training script
+├── sample_data_generator.py       # Generate synthetic data
+├── test_api.py                    # API testing script
+│
+└── backend/                       # Backend API directory
+    ├── app.py                     # Flask REST API application
+    ├── model.pkl                  # Trained ML model (TO BE ADDED)
+    ├── requirements.txt           # Python dependencies
+    ├── .gitignore                 # Backend-specific ignores
+    │
+    ├── README.md                  # Backend documentation
+    ├── render.yaml                # Render.com deployment config
+    ├── railway.json               # Railway.app deployment config
+    └── Procfile                   # Process file for deployment
+
+
+Quick Start Commands:
+--------------------
+
+SETUP (Windows):
+    setup.bat
+
+SETUP (Linux/Mac):
+    chmod +x setup.sh
+    ./setup.sh
+
+GENERATE SAMPLE DATA:
+    py sample_data_generator.py        (Windows)
+    python3 sample_data_generator.py   (Linux/Mac)
+
+TRAIN MODEL:
+    py train_model.py                  (Windows)
+    python3 train_model.py             (Linux/Mac)
+
+START BACKEND:
+    cd backend
+    venv\Scripts\activate              (Windows)
+    source venv/bin/activate           (Linux/Mac)
+    py app.py                          (Windows)
+    python3 app.py                     (Linux/Mac)
+
+OPEN FRONTEND:
+    Open index.html in your browser
+    Or run: python -m http.server 8000
+
+TEST API:
+    py test_api.py                     (Windows)
+    python3 test_api.py                (Linux/Mac)
+
+
+Key Features Implemented:
+-------------------------
+✅ Interactive Leaflet map with OpenStreetMap
+✅ GPS location detection
+✅ Draggable origin marker (blue)
+✅ Click-to-set destination marker (red)
+✅ OSRM routing for accurate road distances
+✅ Automatic route calculation and display
+✅ Fare prediction form with validation
+✅ Flask REST API with /predict endpoint
+✅ Complete error handling
+✅ Mobile-responsive design
+✅ Deployment configurations for Vercel & backend hosts
+✅ Comprehensive documentation
+✅ Setup and testing scripts
+
+
+Required Before Running:
+------------------------
+1. Python 3.8+ installed
+2. Modern web browser
+3. Internet connection
+4. model.pkl file in backend/ directory
+   - Generate sample data and train model, OR
+   - Add your own trained model.pkl
+
+
+API Endpoints:
+-------------
+GET  /              - Health check
+GET  /health        - Detailed health status
+POST /predict       - Predict tricycle fare
+
+
+Dataset Format:
+--------------
+CSV with columns:
+- Distance_km (float)
+- Fuel_Price (string: "20-29", "30-39", etc.)
+- Time_of_Day (string: "Rush Hour Morning", "Off-Peak", "Rush Hour Evening")
+- Weather (string: "Sunny", "Rainy")
+- Vehicle_Type (string: "Single Motor", "Tricycle")
+- Actual_Fare_PHP (float - target variable)
+
+
+Deployment:
+----------
+Frontend: Vercel (automatic from Git)
+Backend: Render.com, Railway.app, or PythonAnywhere
+See README.md for detailed deployment instructions
+
+
+Documentation:
+-------------
+- README.md          - Full project documentation
+- QUICKSTART.md      - 5-minute setup guide
+- PROJECT_SUMMARY.md - Deliverables checklist
+- backend/README.md  - Backend API documentation
+- Code comments      - Throughout all source files
+
+
+Support:
+-------
+- Check README.md for troubleshooting
+- Review QUICKSTART.md for common issues
+- See backend/README.md for API details
+- All code is heavily commented
+
+
+Built for Tagum City 🛺
+========================

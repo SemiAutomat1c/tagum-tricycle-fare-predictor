@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tricycle Fare Optimizer - Tagum City</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🛺 Tricycle Fare Optimizer</h1>
+            <p class="subtitle">Smart fare prediction for Tagum City</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Map Section -->
+            <section class="map-section">
+                <div class="map-controls">
+                    <button id="changeOriginBtn" class="btn btn-secondary">
+                        📍 Change Origin Point
+                    </button>
+                    <button id="resetBtn" class="btn btn-danger">
+                        🔄 Reset Route
+                    </button>
+                </div>
+                
+                <div id="map"></div>
+                
+                <div class="coordinates-display">
+                    <div class="coord-item">
+                        <span class="coord-label">Origin:</span>
+                        <span id="originCoords" class="coord-value">Not set</span>
+                    </div>
+                    <div class="coord-item">
+                        <span class="coord-label">Destination:</span>
+                        <span id="destCoords" class="coord-value">Not set</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Parameters Panel -->
+            <section class="parameters-section">
+                <h2>Fare Prediction Parameters</h2>
+                
+                <form id="fareForm">
+                    <!-- Distance Display -->
+                    <div class="form-group">
+                        <label for="distance">Distance (km)</label>
+                        <input 
+                            type="text" 
+                            id="distance" 
+                            class="form-control" 
+                            readonly 
+                            placeholder="Calculate route first"
+                        >
+                    </div>
+
+                    <!-- Fuel Price -->
+                    <div class="form-group">
+                        <label for="fuelPrice">Fuel Price Range (₱/liter)</label>
+                        <select id="fuelPrice" class="form-control" required>
+                            <option value="">-- Select --</option>
+                            <option value="20-29">₱20-29</option>
+                            <option value="30-39">₱30-39</option>
+                            <option value="40-49">₱40-49</option>
+                            <option value="50-59">₱50-59</option>
+                            <option value="60-69">₱60-69</option>
+                            <option value="70-79">₱70-79</option>
+                            <option value="80-89">₱80-89</option>
+                            <option value="90-99">₱90-99</option>
+                            <option value="100&up">₱100 & up</option>
+                        </select>
+                    </div>
+
+                    <!-- Time of Day -->
+                    <div class="form-group">
+                        <label for="timeOfDay">Time of Day</label>
+                        <select id="timeOfDay" class="form-control" required>
+                            <option value="">-- Select --</option>
+                            <option value="Rush Hour Morning">Rush Hour Morning</option>
+                            <option value="Off-Peak">Off-Peak</option>
+                            <option value="Rush Hour Evening">Rush Hour Evening</option>
+                        </select>
+                    </div>
+
+                    <!-- Weather -->
+                    <div class="form-group">
+                        <label for="weather">Weather Condition</label>
+                        <select id="weather" class="form-control" required>
+                            <option value="">-- Select --</option>
+                            <option value="Sunny">☀️ Sunny</option>
+                            <option value="Rainy">🌧️ Rainy</option>
+                        </select>
+                    </div>
+
+                    <!-- Vehicle Type -->
+                    <div class="form-group">
+                        <label for="vehicleType">Vehicle Type</label>
+                        <select id="vehicleType" class="form-control" required>
+                            <option value="">-- Select --</option>
+                            <option value="Single Motor">Single Motor</option>
+                            <option value="Tricycle">Tricycle</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="predictBtn" class="btn btn-primary">
+                        <span class="btn-text">Predict Fare</span>
+                        <span class="spinner" style="display: none;">⏳</span>
+                    </button>
+                </form>
+
+                <!-- Prediction Result -->
+                <div id="predictionResult" class="prediction-result" style="display: none;">
+                    <h3>Predicted Fare</h3>
+                    <div class="fare-amount" id="fareAmount">₱0.00</div>
+                    <p class="result-note">Estimated fare based on your route and conditions</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+                <!-- Instructions -->
+                <div class="instructions">
+                    <h3>How to Use</h3>
+                    <ol>
+                        <li>Allow location access or click "Change Origin" to set your starting point</li>
+                        <li>Click on the map to set your destination</li>
+                        <li>Wait for the route to calculate (blue line)</li>
+                        <li>Fill in all fare parameters</li>
+                        <li>Click "Predict Fare" to get your estimate</li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by Random Forest ML | Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors</p>
+        </footer>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+</body>
+</html>
