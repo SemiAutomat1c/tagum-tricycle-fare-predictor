@@ -15,7 +15,7 @@ const CONFIG = {
     // Backend API endpoint - automatically detects local vs deployed
     backendAPI: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000/predict'
-        : 'https://YOUR-BACKEND-URL.onrender.com/predict' // Update this after deploying backend
+        : '/api/predict' // Vercel serverless function
 };
 
 // Global state
