@@ -19,8 +19,8 @@ logger = logging.getLogger(__name__)
 # Initialize Flask app
 app = Flask(__name__)
 
-# Enable CORS for all routes (configure this properly for production)
-CORS(app)
+# Enable CORS for all routes (allows requests from Vercel frontend)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Global variable to store the loaded model
 model = None

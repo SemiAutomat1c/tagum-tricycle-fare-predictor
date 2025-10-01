@@ -15,7 +15,7 @@ const CONFIG = {
     // Backend API endpoint - automatically detects local vs deployed
     backendAPI: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000/predict'
-        : '/api/predict' // Vercel serverless function
+        : 'https://tagum-tricycle-fare-api.onrender.com/predict' // Update after deploying to Render
 };
 
 // Global state
