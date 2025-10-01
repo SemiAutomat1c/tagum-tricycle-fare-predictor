@@ -259,14 +259,26 @@ def internal_error(error):
     }), 500
 
 
+# Load model on module import (for Gunicorn)
+logger.info("="*60)
+logger.info("Tricycle Fare Optimizer API - Module Loading")
+logger.info("="*60)
+logger.info(f"Current directory: {os.getcwd()}")
+logger.info(f"Files in directory: {os.listdir('.')}")
+logger.info("Attempting to load model...")
+
+if load_model() is None:
+    logger.error("="*60)
+    logger.error("CRITICAL: Model failed to load!")
+    logger.error("="*60)
+else:
+    logger.info("="*60)
+    logger.info("SUCCESS: Model loaded successfully!")
+    logger.info("="*60)
+
 # Application entry point
 if __name__ == '__main__':
     logger.info("Starting Tricycle Fare Optimizer API...")
-    
-    # Load the model
-    if load_model() is None:
-        logger.warning("API starting without model loaded")
-        logger.warning("Prediction requests will fail until model is available")
     
     # Run the Flask app
     # For production, use a proper WSGI server like Gunicorn
