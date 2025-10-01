@@ -39,10 +39,20 @@ def generate_sample_data(n_samples=500, output_file='tricycle_fare_data.csv'):
     
     # Calculate fare using a realistic formula
     # Base fare calculation with various factors
+    
+    # Handle fuel price conversion (special case for "100&up")
+    def convert_fuel_price(price_range):
+        if price_range == "100&up":
+            return 100.0
+        else:
+            return float(price_range.split('-')[0])
+    
+    df['Fuel_Price_Numeric'] = df['Fuel_Price'].apply(convert_fuel_price)
+    
     df['Actual_Fare_PHP'] = (
         10.0 +                                                          # Base fare
         (df['Distance_km'] * 8.0) +                                    # Distance factor
-        (df['Fuel_Price'].str.split('-').str[0].astype(float) * 0.1) + # Fuel price factor
+        (df['Fuel_Price_Numeric'] * 0.1) +                             # Fuel price factor
         (df['Time_of_Day'].map({
             'Rush Hour Morning': 5.0,
             'Off-Peak': 0.0,
@@ -57,6 +67,9 @@ def generate_sample_data(n_samples=500, output_file='tricycle_fare_data.csv'):
             'Tricycle': 5.0
         }))
     )
+    
+    # Drop the temporary numeric column
+    df = df.drop('Fuel_Price_Numeric', axis=1)
     
     # Add some random noise to make it realistic
     noise = np.random.normal(0, 2, n_samples)

@@ -115,6 +115,26 @@ def prepare_input_dataframe(data):
     # Ensure Distance_km is float
     df['Distance_km'] = df['Distance_km'].astype(float)
     
+    # Encode categorical variables to match training format
+    # The model was trained with encoded column names
+    categorical_columns = ['Fuel_Price', 'Time_of_Day', 'Weather', 'Vehicle_Type']
+    
+    # Mapping for categorical encoding (must match training data)
+    encodings = {
+        'Fuel_Price': {'100&up': 0, '20-29': 1, '30-39': 2, '40-49': 3, '50-59': 4, '60-69': 5, '70-79': 6, '80-89': 7, '90-99': 8},
+        'Time_of_Day': {'Off-Peak': 0, 'Rush Hour Evening': 1, 'Rush Hour Morning': 2},
+        'Weather': {'Rainy': 0, 'Sunny': 1},
+        'Vehicle_Type': {'Single Motor': 0, 'Tricycle': 1}
+    }
+    
+    # Create encoded columns
+    for col in categorical_columns:
+        df[col + '_encoded'] = df[col].map(encodings[col])
+    
+    # Select only the columns the model expects (Distance_km + encoded columns)
+    encoded_columns = ['Distance_km'] + [col + '_encoded' for col in categorical_columns]
+    df = df[encoded_columns]
+    
     return df
 
 
