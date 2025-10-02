@@ -486,11 +486,13 @@ function showNotification(message, type = 'info') {
  * Filter and display destination suggestions based on search input
  * @param {string} searchText - User's search input
  */
-function filterDestinations(searchText) {
+async function filterDestinations(searchText) {
     const suggestionsContainer = document.getElementById('searchSuggestions');
+    const searchInput = document.getElementById('destinationSearch');
     
     if (!searchText || searchText.trim().length < 2) {
         suggestionsContainer.style.display = 'none';
+        searchInput.style.borderRadius = '8px';
         return;
     }
     
@@ -503,14 +505,14 @@ function filterDestinations(searchText) {
     );
     
     if (matches.length === 0) {
-        suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">No destinations found</div>';
-        suggestionsContainer.style.display = 'block';
+        // If no predefined matches, search using Nominatim
+        await searchNominatim(query);
         return;
     }
     
     // Display suggestions
     suggestionsContainer.innerHTML = matches.map(dest => `
-        <div class="suggestion-item" data-lat="${dest.lat}" data-lng="${dest.lng}" data-name="${dest.name}">
+        <div class="suggestion-item" data-name="${dest.name}" data-search="${dest.name}, Tagum City, Philippines">
             <span class="suggestion-icon">📍</span>
             <div class="suggestion-text">
                 <span class="suggestion-name">${dest.name}</span>
@@ -520,18 +522,97 @@ function filterDestinations(searchText) {
     `).join('');
     
     suggestionsContainer.style.display = 'block';
+    searchInput.style.borderRadius = '8px 8px 0 0';
     
     // Add click listeners to suggestions
-    const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
+    const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-search]');
     suggestionItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const lat = parseFloat(this.getAttribute('data-lat'));
-            const lng = parseFloat(this.getAttribute('data-lng'));
+        item.addEventListener('click', async function() {
+            const searchQuery = this.getAttribute('data-search');
             const name = this.getAttribute('data-name');
             
-            selectDestination(lat, lng, name);
+            await geocodeAndSetDestination(searchQuery, name);
         });
     });
+}
+
+/**
+ * Search for locations using Nominatim OpenStreetMap API
+ * @param {string} query - Search query
+ */
+async function searchNominatim(query) {
+    const suggestionsContainer = document.getElementById('searchSuggestions');
+    const searchInput = document.getElementById('destinationSearch');
+    
+    suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">Searching...</div>';
+    suggestionsContainer.style.display = 'block';
+    searchInput.style.borderRadius = '8px 8px 0 0';
+    
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ', Tagum City, Philippines')}&format=json&limit=5`);
+        const results = await response.json();
+        
+        if (results.length === 0) {
+            suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">No destinations found</div>';
+            return;
+        }
+        
+        suggestionsContainer.innerHTML = results.map(result => `
+            <div class="suggestion-item" data-lat="${result.lat}" data-lng="${result.lon}" data-name="${result.display_name.split(',')[0]}">
+                <span class="suggestion-icon">🔍</span>
+                <div class="suggestion-text">
+                    <span class="suggestion-name">${result.display_name.split(',')[0]}</span>
+                    <span class="suggestion-category">${result.type || 'Location'}</span>
+                </div>
+            </div>
+        `).join('');
+        
+        const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
+        suggestionItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const lat = parseFloat(this.getAttribute('data-lat'));
+                const lng = parseFloat(this.getAttribute('data-lng'));
+                const name = this.getAttribute('data-name');
+                
+                selectDestination(lat, lng, name);
+            });
+        });
+    } catch (error) {
+        console.error('Nominatim search error:', error);
+        suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">Search error. Try again.</div>';
+    }
+}
+
+/**
+ * Geocode a location and set it as destination
+ * @param {string} searchQuery - Location search query
+ * @param {string} displayName - Display name for the location
+ */
+async function geocodeAndSetDestination(searchQuery, displayName) {
+    const searchInput = document.getElementById('destinationSearch');
+    const suggestionsContainer = document.getElementById('searchSuggestions');
+    
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=1`);
+        const results = await response.json();
+        
+        if (results.length > 0) {
+            const lat = parseFloat(results[0].lat);
+            const lng = parseFloat(results[0].lon);
+            
+            searchInput.value = displayName;
+            searchInput.style.borderRadius = '8px';
+            suggestionsContainer.style.display = 'none';
+            
+            setDestination(lat, lng, displayName);
+            map.setView([lat, lng], 15);
+        } else {
+            alert('Could not find exact location. Please try clicking on the map.');
+        }
+    } catch (error) {
+        console.error('Geocoding error:', error);
+        alert('Error finding location. Please try again.');
+    }
 }
 
 /**
@@ -546,6 +627,7 @@ function selectDestination(lat, lng, name) {
     
     // Update search input
     searchInput.value = name;
+    searchInput.style.borderRadius = '8px';
     
     // Hide suggestions
     suggestionsContainer.style.display = 'none';
@@ -685,8 +767,10 @@ function setupEventListeners() {
     // Hide suggestions when clicking outside
     document.addEventListener('click', function(e) {
         const searchContainer = document.querySelector('.search-container');
+        const searchInput = document.getElementById('destinationSearch');
         if (searchContainer && !searchContainer.contains(e.target)) {
             document.getElementById('searchSuggestions').style.display = 'none';
+            searchInput.style.borderRadius = '8px';
         }
     });
     
