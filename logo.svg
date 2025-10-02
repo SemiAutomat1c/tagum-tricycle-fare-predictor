@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
+  <!-- This is a placeholder - you should replace with actual logo -->
+  <circle cx="100" cy="100" r="80" fill="#2E7D32"/>
+  <text x="100" y="110" text-anchor="middle" fill="white" font-size="20" font-weight="bold">TAGUM</text>
+</svg>
