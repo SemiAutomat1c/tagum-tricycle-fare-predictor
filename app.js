@@ -26,6 +26,33 @@ let routeLine = null;
 let currentRoute = null;
 let isSettingOrigin = false;
 
+// Popular destinations in Tagum City
+const DESTINATIONS = [
+    { name: 'Tagum City Hall', category: 'Government', lat: 7.4479, lng: 125.8091 },
+    { name: 'Gaisano Mall Tagum', category: 'Shopping', lat: 7.4482, lng: 125.8094 },
+    { name: 'New City Commercial Center (NCCC)', category: 'Shopping', lat: 7.4496, lng: 125.8068 },
+    { name: 'Energy Park', category: 'Recreational', lat: 7.4459, lng: 125.8054 },
+    { name: 'Tagum City Plaza', category: 'Landmark', lat: 7.4476, lng: 125.8088 },
+    { name: 'Tagum Doctors Hospital', category: 'Healthcare', lat: 7.4503, lng: 125.8132 },
+    { name: 'Davao del Norte State College', category: 'Education', lat: 7.4531, lng: 125.8213 },
+    { name: 'Apokon Elementary School', category: 'Education', lat: 7.4381, lng: 125.7985 },
+    { name: 'Tagum City Airport', category: 'Transportation', lat: 7.4312, lng: 125.8109 },
+    { name: 'Tagum Public Market', category: 'Market', lat: 7.4472, lng: 125.8081 },
+    { name: 'Banana Beach Resort', category: 'Resort', lat: 7.4298, lng: 125.8257 },
+    { name: 'Hijo Resources Corporation', category: 'Business', lat: 7.3826, lng: 125.8402 },
+    { name: 'SM City Tagum', category: 'Shopping', lat: 7.4489, lng: 125.8121 },
+    { name: 'Freedom Park', category: 'Recreational', lat: 7.4463, lng: 125.8079 },
+    { name: 'Tagum City Central School', category: 'Education', lat: 7.4468, lng: 125.8095 },
+    { name: 'Holy Cross of Davao College', category: 'Education', lat: 7.4499, lng: 125.8142 },
+    { name: 'Tagum Health Center', category: 'Healthcare', lat: 7.4484, lng: 125.8087 },
+    { name: 'Magugpo Poblacion', category: 'Barangay', lat: 7.4421, lng: 125.8101 },
+    { name: 'New Balamban', category: 'Barangay', lat: 7.4612, lng: 125.8189 },
+    { name: 'San Agustin Church', category: 'Religious', lat: 7.4478, lng: 125.8086 },
+    { name: 'Victory Mall', category: 'Shopping', lat: 7.4461, lng: 125.8076 },
+    { name: 'Purok Riverside', category: 'Barangay', lat: 7.4394, lng: 125.8124 },
+    { name: 'Rotonda Tagum', category: 'Landmark', lat: 7.4469, lng: 125.8103 }
+];
+
 // ============================================
 // Map Initialization
 // ============================================
@@ -183,8 +210,9 @@ function setOrigin(lat, lng) {
  * Set destination marker on the map
  * @param {number} lat - Latitude
  * @param {number} lng - Longitude
+ * @param {string} name - Optional destination name
  */
-function setDestination(lat, lng) {
+function setDestination(lat, lng, name = null) {
     // Remove existing destination marker
     if (destinationMarker) {
         map.removeLayer(destinationMarker);
@@ -206,10 +234,11 @@ function setDestination(lat, lng) {
     // Add destination marker
     destinationMarker = L.marker([lat, lng], {
         icon: redIcon,
-        title: 'Destination'
+        title: name || 'Destination'
     }).addTo(map);
     
-    destinationMarker.bindPopup('<b>Destination</b>').openPopup();
+    const popupText = name ? `<b>${name}</b>` : '<b>Destination</b>';
+    destinationMarker.bindPopup(popupText).openPopup();
     
     updateDestinationCoordinates(lat, lng);
     
@@ -450,6 +479,122 @@ function showNotification(message, type = 'info') {
 }
 
 // ============================================
+// Destination Search
+// ============================================
+
+/**
+ * Filter and display destination suggestions based on search input
+ * @param {string} searchText - User's search input
+ */
+function filterDestinations(searchText) {
+    const suggestionsContainer = document.getElementById('searchSuggestions');
+    
+    if (!searchText || searchText.trim().length < 2) {
+        suggestionsContainer.style.display = 'none';
+        return;
+    }
+    
+    const query = searchText.toLowerCase().trim();
+    
+    // Filter destinations that match the search query
+    const matches = DESTINATIONS.filter(dest => 
+        dest.name.toLowerCase().includes(query) || 
+        dest.category.toLowerCase().includes(query)
+    );
+    
+    if (matches.length === 0) {
+        suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">No destinations found</div>';
+        suggestionsContainer.style.display = 'block';
+        return;
+    }
+    
+    // Display suggestions
+    suggestionsContainer.innerHTML = matches.map(dest => `
+        <div class="suggestion-item" data-lat="${dest.lat}" data-lng="${dest.lng}" data-name="${dest.name}">
+            <span class="suggestion-icon">📍</span>
+            <div class="suggestion-text">
+                <span class="suggestion-name">${dest.name}</span>
+                <span class="suggestion-category">${dest.category}</span>
+            </div>
+        </div>
+    `).join('');
+    
+    suggestionsContainer.style.display = 'block';
+    
+    // Add click listeners to suggestions
+    const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
+    suggestionItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const lat = parseFloat(this.getAttribute('data-lat'));
+            const lng = parseFloat(this.getAttribute('data-lng'));
+            const name = this.getAttribute('data-name');
+            
+            selectDestination(lat, lng, name);
+        });
+    });
+}
+
+/**
+ * Select a destination from search results
+ * @param {number} lat - Latitude
+ * @param {number} lng - Longitude  
+ * @param {string} name - Destination name
+ */
+function selectDestination(lat, lng, name) {
+    const searchInput = document.getElementById('destinationSearch');
+    const suggestionsContainer = document.getElementById('searchSuggestions');
+    
+    // Update search input
+    searchInput.value = name;
+    
+    // Hide suggestions
+    suggestionsContainer.style.display = 'none';
+    
+    // Set destination on map
+    setDestination(lat, lng, name);
+    
+    // Pan map to show destination
+    map.setView([lat, lng], 15);
+}
+
+/**
+ * Handle keyboard navigation in search suggestions
+ * @param {KeyboardEvent} e - Keyboard event
+ */
+function handleSearchKeyboard(e) {
+    const suggestionsContainer = document.getElementById('searchSuggestions');
+    const items = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
+    
+    if (items.length === 0) return;
+    
+    const activeItem = suggestionsContainer.querySelector('.suggestion-item.active');
+    let currentIndex = Array.from(items).indexOf(activeItem);
+    
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (activeItem) activeItem.classList.remove('active');
+        currentIndex = (currentIndex + 1) % items.length;
+        items[currentIndex].classList.add('active');
+        items[currentIndex].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (activeItem) activeItem.classList.remove('active');
+        currentIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
+        items[currentIndex].classList.add('active');
+        items[currentIndex].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeItem) {
+            activeItem.click();
+        } else if (items.length > 0) {
+            items[0].click();
+        }
+    } else if (e.key === 'Escape') {
+        suggestionsContainer.style.display = 'none';
+    }
+}
+
+// ============================================
 // UI Controls
 // ============================================
 
@@ -491,6 +636,10 @@ function handleReset() {
     // Clear distance field
     document.getElementById('distance').value = '';
     
+    // Clear search input
+    document.getElementById('destinationSearch').value = '';
+    document.getElementById('searchSuggestions').style.display = 'none';
+    
     // Hide prediction result
     document.getElementById('predictionResult').style.display = 'none';
     document.getElementById('errorMessage').style.display = 'none';
@@ -523,6 +672,23 @@ function setupEventListeners() {
     
     // Reset button
     document.getElementById('resetBtn').addEventListener('click', handleReset);
+    
+    // Destination search input
+    const searchInput = document.getElementById('destinationSearch');
+    searchInput.addEventListener('input', function(e) {
+        filterDestinations(e.target.value);
+    });
+    
+    // Keyboard navigation for search
+    searchInput.addEventListener('keydown', handleSearchKeyboard);
+    
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        const searchContainer = document.querySelector('.search-container');
+        if (searchContainer && !searchContainer.contains(e.target)) {
+            document.getElementById('searchSuggestions').style.display = 'none';
+        }
+    });
     
     console.log('Event listeners initialized');
 }

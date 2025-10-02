@@ -39,6 +39,20 @@
                         🔄 Reset Route
                     </button>
                 </div>
+
+                <!-- Destination Search -->
+                <div class="destination-search">
+                    <div class="search-container">
+                        <input 
+                            type="text" 
+                            id="destinationSearch" 
+                            class="search-input" 
+                            placeholder="🔍 Search destination or click map..."
+                            autocomplete="off"
+                        >
+                        <div id="searchSuggestions" class="search-suggestions" style="display: none;"></div>
+                    </div>
+                </div>
                 
                 <div id="map"></div>
                 
@@ -141,7 +155,7 @@
                     <h3>How to Use</h3>
                     <ol>
                         <li>Allow location access or click "Change Origin" to set your starting point</li>
-                        <li>Click on the map to set your destination</li>
+                        <li>Search for a destination using the search bar or click on the map</li>
                         <li>Wait for the route to calculate (blue line)</li>
                         <li>Fill in all fare parameters</li>
                         <li>Click "Predict Fare" to get your estimate</li>
