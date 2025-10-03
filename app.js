@@ -26,31 +26,21 @@ let routeLine = null;
 let currentRoute = null;
 let isSettingOrigin = false;
 
-// Popular destinations in Tagum City
+// Popular destinations in Tagum City with accurate coordinates
 const DESTINATIONS = [
-    { name: 'Tagum City Hall', category: 'Government', lat: 7.4479, lng: 125.8091 },
-    { name: 'Gaisano Mall Tagum', category: 'Shopping', lat: 7.4482, lng: 125.8094 },
-    { name: 'New City Commercial Center (NCCC)', category: 'Shopping', lat: 7.4496, lng: 125.8068 },
-    { name: 'Energy Park', category: 'Recreational', lat: 7.4459, lng: 125.8054 },
-    { name: 'Tagum City Plaza', category: 'Landmark', lat: 7.4476, lng: 125.8088 },
-    { name: 'Tagum Doctors Hospital', category: 'Healthcare', lat: 7.4503, lng: 125.8132 },
-    { name: 'Davao del Norte State College', category: 'Education', lat: 7.4531, lng: 125.8213 },
-    { name: 'Apokon Elementary School', category: 'Education', lat: 7.4381, lng: 125.7985 },
-    { name: 'Tagum City Airport', category: 'Transportation', lat: 7.4312, lng: 125.8109 },
-    { name: 'Tagum Public Market', category: 'Market', lat: 7.4472, lng: 125.8081 },
-    { name: 'Banana Beach Resort', category: 'Resort', lat: 7.4298, lng: 125.8257 },
-    { name: 'Hijo Resources Corporation', category: 'Business', lat: 7.3826, lng: 125.8402 },
-    { name: 'SM City Tagum', category: 'Shopping', lat: 7.4489, lng: 125.8121 },
-    { name: 'Freedom Park', category: 'Recreational', lat: 7.4463, lng: 125.8079 },
-    { name: 'Tagum City Central School', category: 'Education', lat: 7.4468, lng: 125.8095 },
-    { name: 'Holy Cross of Davao College', category: 'Education', lat: 7.4499, lng: 125.8142 },
-    { name: 'Tagum Health Center', category: 'Healthcare', lat: 7.4484, lng: 125.8087 },
-    { name: 'Magugpo Poblacion', category: 'Barangay', lat: 7.4421, lng: 125.8101 },
-    { name: 'New Balamban', category: 'Barangay', lat: 7.4612, lng: 125.8189 },
-    { name: 'San Agustin Church', category: 'Religious', lat: 7.4478, lng: 125.8086 },
-    { name: 'Victory Mall', category: 'Shopping', lat: 7.4461, lng: 125.8076 },
-    { name: 'Purok Riverside', category: 'Barangay', lat: 7.4394, lng: 125.8124 },
-    { name: 'Rotonda Tagum', category: 'Landmark', lat: 7.4469, lng: 125.8103 }
+    { name: 'Gaisano Mall of Tagum', category: 'Shopping', lat: 7.448802, lng: 125.811507 },
+    { name: 'Tagum City Hall', category: 'Government', lat: 7.440798, lng: 125.826451 },
+    { name: 'Robinsons Place Tagum', category: 'Shopping', lat: 7.430195, lng: 125.796646 },
+    { name: 'UM Tagum College - Visayan', category: 'Education', lat: 7.426032, lng: 125.793776 },
+    { name: 'Energy Park', category: 'Recreational', lat: 7.415599, lng: 125.826301 },
+    { name: 'UM Tagum College - Arellano', category: 'Education', lat: 7.446727, lng: 125.801287 },
+    { name: 'Tagum Public Market', category: 'Market', lat: 7.461004, lng: 125.801672 },
+    { name: 'Tagum Terminal', category: 'Transportation', lat: 7.461214, lng: 125.798928 },
+    { name: 'NCCC Mall Tagum', category: 'Shopping', lat: 7.451530, lng: 125.813445 },
+    { name: 'Tagum City Historical and Cultural Center', category: 'Landmark', lat: 7.447796, lng: 125.804273 },
+    { name: 'Tagum Doctors\' Hospital', category: 'Healthcare', lat: 7.439006, lng: 125.803606 },
+    { name: 'Big 8 Corporate Hotel', category: 'Hotel', lat: 7.441489, lng: 125.805756 },
+    { name: 'St. Mary\'s College of Tagum', category: 'Education', lat: 7.454189, lng: 125.815612 }
 ];
 
 // ============================================
@@ -512,7 +502,7 @@ async function filterDestinations(searchText) {
     
     // Display suggestions
     suggestionsContainer.innerHTML = matches.map(dest => `
-        <div class="suggestion-item" data-name="${dest.name}" data-search="${dest.name}, Tagum City, Philippines">
+        <div class="suggestion-item" data-lat="${dest.lat}" data-lng="${dest.lng}" data-name="${dest.name}">
             <span class="suggestion-icon">📍</span>
             <div class="suggestion-text">
                 <span class="suggestion-name">${dest.name}</span>
@@ -525,13 +515,14 @@ async function filterDestinations(searchText) {
     searchInput.style.borderRadius = '8px 8px 0 0';
     
     // Add click listeners to suggestions
-    const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-search]');
+    const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
     suggestionItems.forEach(item => {
-        item.addEventListener('click', async function() {
-            const searchQuery = this.getAttribute('data-search');
+        item.addEventListener('click', function() {
+            const lat = parseFloat(this.getAttribute('data-lat'));
+            const lng = parseFloat(this.getAttribute('data-lng'));
             const name = this.getAttribute('data-name');
             
-            await geocodeAndSetDestination(searchQuery, name);
+            selectDestination(lat, lng, name);
         });
     });
 }
