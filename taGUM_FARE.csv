@@ -1,0 +1,1002 @@
+Distance_km,Fuel_Price,Time_of_Day,Weather,Vehicle_Type,Actual_Fare_PHP
+5.82,?70-79,Rush Hour Evening,Sunny,Single Motor,49
+8.61,?40-49,Off-Peak,Sunny,Tricycle,27
+2.15,?60-69,Rush Hour Morning,Sunny,Tricycle,17
+6.93,?90-99,Rush Hour Evening,Rainy,Single Motor,76
+4.41,?60-69,Off-Peak,Rainy,Tricycle,31
+1.89,?100 & up,Off-Peak,Sunny,Single Motor,32
+11.45,?40-49,Rush Hour Evening,Rainy,Tricycle,43
+1.35,?70-79,Rush Hour Morning,Rainy,Single Motor,43
+9.19,?30-39,Rush Hour Morning,Sunny,Tricycle,28
+7.84,?50-59,Off-Peak,Sunny,Single Motor,56
+3.28,?90-99,Off-Peak,Sunny,Tricycle,22
+3.97,?60-69,Rush Hour Evening,Rainy,Single Motor,48
+13.76,?80-89,Rush Hour Morning,Rainy,Tricycle,41
+8.51,?100 & up,Rush Hour Evening,Sunny,Single Motor,68
+3.64,?40-49,Off-Peak,Sunny,Single Motor,32
+4.68,?70-79,Off-Peak,Rainy,Tricycle,32
+0.78,?20-29,Rush Hour Morning,Sunny,Tricycle,13
+8.25,?50-59,Rush Hour Evening,Rainy,Single Motor,67
+12.81,?80-89,Off-Peak,Sunny,Tricycle,39
+10.33,?60-69,Rush Hour Morning,Sunny,Single Motor,68
+5.32,?90-99,Off-Peak,Rainy,Tricycle,34
+14.99,?30-39,Rush Hour Evening,Sunny,Single Motor,87
+1.21,?70-79,Rush Hour Morning,Sunny,Tricycle,18
+9.78,?100 & up,Off-Peak,Sunny,Tricycle,35
+7.45,?40-49,Rush Hour Morning,Rainy,Single Motor,68
+6.03,?80-89,Rush Hour Evening,Sunny,Tricycle,25
+10.94,?50-59,Off-Peak,Rainy,Single Motor,80
+0.52,?20-29,Rush Hour Evening,Sunny,Single Motor,25
+8.88,?60-69,Off-Peak,Rainy,Tricycle,33
+12.17,?90-99,Rush Hour Morning,Sunny,Single Motor,79
+1.55,?70-79,Rush Hour Evening,Rainy,Tricycle,28
+14.28,?100 & up,Off-Peak,Sunny,Single Motor,90
+3.73,?30-39,Rush Hour Morning,Sunny,Tricycle,16
+6.57,?80-89,Off-Peak,Rainy,Single Motor,66
+2.91,?40-49,Rush Hour Evening,Sunny,Tricycle,15
+11.76,?50-59,Rush Hour Morning,Sunny,Single Motor,76
+9.34,?60-69,Off-Peak,Rainy,Tricycle,35
+0.88,?90-99,Rush Hour Morning,Sunny,Single Motor,29
+13.52,?20-29,Off-Peak,Rainy,Tricycle,45
+4.86,?70-79,Rush Hour Evening,Sunny,Single Motor,46
+7.09,?100 & up,Rush Hour Morning,Rainy,Tricycle,39
+10.15,?80-89,Off-Peak,Sunny,Single Motor,70
+2.47,?30-39,Rush Hour Evening,Sunny,Tricycle,14
+12.63,?40-49,Rush Hour Morning,Rainy,Single Motor,84
+5.69,?50-59,Off-Peak,Sunny,Tricycle,22
+1.04,?60-69,Rush Hour Morning,Rainy,Single Motor,35
+14.5,?90-99,Rush Hour Evening,Sunny,Tricycle,44
+8.07,?20-29,Off-Peak,Sunny,Single Motor,57
+3.49,?70-79,Rush Hour Morning,Sunny,Tricycle,20
+11.23,?100 & up,Off-Peak,Rainy,Single Motor,84
+6.35,?80-89,Rush Hour Evening,Sunny,Tricycle,25
+9.61,?30-39,Off-Peak,Rainy,Tricycle,30
+0.65,?40-49,Rush Hour Morning,Sunny,Single Motor,23
+13.19,?50-59,Rush Hour Evening,Sunny,Tricycle,36
+2.02,?60-69,Off-Peak,Rainy,Single Motor,39
+10.82,?90-99,Rush Hour Morning,Sunny,Single Motor,73
+4.23,?20-29,Rush Hour Evening,Sunny,Tricycle,15
+12.98,?70-79,Off-Peak,Sunny,Single Motor,82
+7.63,?100 & up,Rush Hour Morning,Rainy,Tricycle,41
+1.48,?80-89,Off-Peak,Sunny,Single Motor,28
+5.96,?30-39,Rush Hour Evening,Sunny,Tricycle,20
+14.16,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+9.11,?50-59,Off-Peak,Sunny,Single Motor,64
+0.72,?60-69,Rush Hour Morning,Rainy,Single Motor,34
+13.87,?90-99,Off-Peak,Sunny,Tricycle,42
+3.36,?20-29,Rush Hour Evening,Rainy,Tricycle,25
+6.81,?70-79,Rush Hour Morning,Sunny,Single Motor,51
+11.69,?100 & up,Off-Peak,Sunny,Tricycle,39
+2.75,?80-89,Rush Hour Evening,Rainy,Single Motor,46
+10.49,?30-39,Off-Peak,Sunny,Tricycle,29
+4.57,?40-49,Rush Hour Morning,Sunny,Single Motor,38
+12.3,?50-59,Rush Hour Evening,Rainy,Tricycle,45
+1.96,?60-69,Off-Peak,Sunny,Single Motor,28
+8.39,?90-99,Rush Hour Morning,Rainy,Tricycle,41
+5.24,?20-29,Rush Hour Evening,Sunny,Tricycle,17
+13.34,?70-79,Off-Peak,Rainy,Single Motor,93
+7.27,?100 & up,Rush Hour Morning,Sunny,Single Motor,60
+2.33,?80-89,Off-Peak,Rainy,Tricycle,29
+11.08,?30-39,Rush Hour Evening,Sunny,Tricycle,30
+6.17,?40-49,Rush Hour Morning,Sunny,Single Motor,47
+9.95,?50-59,Off-Peak,Rainy,Single Motor,78
+0.91,?60-69,Rush Hour Morning,Sunny,Tricycle,17
+14.66,?90-99,Rush Hour Evening,Rainy,Tricycle,53
+4.09,?20-29,Off-Peak,Sunny,Single Motor,35
+12.06,?70-79,Rush Hour Morning,Sunny,Tricycle,36
+3.03,?100 & up,Off-Peak,Rainy,Tricycle,41
+8.75,?80-89,Rush Hour Evening,Sunny,Single Motor,65
+1.69,?30-39,Off-Peak,Sunny,Tricycle,14
+10.27,?40-49,Rush Hour Morning,Rainy,Single Motor,77
+5.52,?50-59,Rush Hour Evening,Sunny,Tricycle,22
+7.79,?60-69,Off-Peak,Rainy,Single Motor,69
+13.93,?90-99,Rush Hour Morning,Sunny,Single Motor,87
+2.84,?20-29,Off-Peak,Sunny,Tricycle,13
+11.4,?70-79,Rush Hour Evening,Rainy,Tricycle,46
+4.35,?100 & up,Rush Hour Morning,Sunny,Single Motor,45
+9.47,?80-89,Off-Peak,Sunny,Tricycle,33
+0.58,?30-39,Rush Hour Evening,Rainy,Single Motor,36
+14.88,?40-49,Rush Hour Morning,Sunny,Tricycle,39
+6.7,?50-59,Off-Peak,Rainy,Single Motor,64
+3.6,?60-69,Rush Hour Morning,Sunny,Single Motor,35
+8.12,?90-99,Rush Hour Evening,Rainy,Tricycle,40
+1.18,?20-29,Off-Peak,Sunny,Tricycle,13
+12.42,?70-79,Rush Hour Morning,Sunny,Single Motor,79
+5.01,?100 & up,Off-Peak,Sunny,Tricycle,27
+9.83,?80-89,Rush Hour Evening,Rainy,Single Motor,80
+2.67,?30-39,Off-Peak,Rainy,Tricycle,24
+10.63,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.44,?50-59,Rush Hour Evening,Sunny,Single Motor,50
+13.68,?60-69,Off-Peak,Rainy,Single Motor,93
+3.21,?90-99,Rush Hour Morning,Sunny,Tricycle,22
+0.84,?20-29,Rush Hour Evening,Sunny,Single Motor,28
+11.85,?70-79,Off-Peak,Rainy,Tricycle,48
+4.78,?100 & up,Rush Hour Morning,Sunny,Tricycle,25
+7.38,?80-89,Rush Hour Evening,Sunny,Single Motor,57
+1.61,?30-39,Off-Peak,Sunny,Single Motor,25
+14.41,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+9.25,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.9,?60-69,Off-Peak,Sunny,Single Motor,47
+8.96,?90-99,Rush Hour Morning,Rainy,Single Motor,77
+2.1,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+12.75,?70-79,Off-Peak,Sunny,Tricycle,37
+6.29,?100 & up,Rush Hour Morning,Sunny,Single Motor,54
+10.01,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.89,?30-39,Off-Peak,Sunny,Tricycle,16
+11.56,?40-49,Rush Hour Morning,Sunny,Single Motor,75
+7.03,?50-59,Rush Hour Evening,Rainy,Single Motor,66
+1.31,?60-69,Off-Peak,Sunny,Tricycle,17
+13.04,?90-99,Rush Hour Morning,Sunny,Tricycle,40
+4.94,?20-29,Rush Hour Evening,Sunny,Single Motor,42
+8.67,?70-79,Off-Peak,Rainy,Single Motor,75
+5.43,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.58,?80-89,Rush Hour Evening,Sunny,Single Motor,69
+2.24,?30-39,Off-Peak,Rainy,Tricycle,24
+10.38,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.61,?50-59,Rush Hour Evening,Sunny,Single Motor,51
+14.23,?60-69,Off-Peak,Sunny,Tricycle,41
+3.42,?90-99,Rush Hour Morning,Rainy,Single Motor,49
+0.97,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.2,?70-79,Off-Peak,Rainy,Single Motor,89
+4.15,?100 & up,Rush Hour Morning,Sunny,Single Motor,44
+7.72,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.85,?30-39,Off-Peak,Sunny,Single Motor,26
+13.8,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+9.02,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.1,?60-69,Off-Peak,Sunny,Single Motor,43
+8.27,?90-99,Rush Hour Morning,Rainy,Single Motor,73
+2.52,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.97,?70-79,Off-Peak,Sunny,Tricycle,36
+6.87,?100 & up,Rush Hour Morning,Sunny,Single Motor,58
+10.77,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.77,?30-39,Off-Peak,Sunny,Tricycle,16
+12.56,?40-49,Rush Hour Morning,Sunny,Single Motor,80
+7.3,?50-59,Rush Hour Evening,Rainy,Single Motor,67
+1.51,?60-69,Off-Peak,Sunny,Tricycle,17
+13.4,?90-99,Rush Hour Morning,Sunny,Tricycle,41
+4.48,?20-29,Rush Hour Evening,Sunny,Single Motor,39
+8.03,?70-79,Off-Peak,Rainy,Single Motor,72
+5.67,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.2,?80-89,Rush Hour Evening,Sunny,Single Motor,67
+2.09,?30-39,Off-Peak,Rainy,Tricycle,24
+10.93,?40-49,Rush Hour Morning,Sunny,Tricycle,32
+6.13,?50-59,Rush Hour Evening,Sunny,Single Motor,49
+14.79,?60-69,Off-Peak,Sunny,Tricycle,42
+3.09,?90-99,Rush Hour Morning,Rainy,Single Motor,47
+0.69,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.87,?70-79,Off-Peak,Rainy,Single Motor,91
+4.9,?100 & up,Rush Hour Morning,Sunny,Single Motor,48
+7.16,?80-89,Rush Hour Evening,Sunny,Tricycle,28
+1.42,?30-39,Off-Peak,Sunny,Single Motor,25
+13.22,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.47,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.37,?60-69,Off-Peak,Sunny,Single Motor,44
+8.62,?90-99,Rush Hour Morning,Rainy,Single Motor,75
+2.78,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.1,?70-79,Off-Peak,Sunny,Tricycle,34
+6.49,?100 & up,Rush Hour Morning,Sunny,Single Motor,55
+10.12,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.32,?30-39,Off-Peak,Sunny,Tricycle,15
+12.11,?40-49,Rush Hour Morning,Sunny,Single Motor,78
+7.56,?50-59,Rush Hour Evening,Rainy,Single Motor,68
+1.75,?60-69,Off-Peak,Sunny,Tricycle,17
+13.63,?90-99,Rush Hour Morning,Sunny,Tricycle,41
+4.2,?20-29,Rush Hour Evening,Sunny,Single Motor,38
+8.3,?70-79,Off-Peak,Rainy,Single Motor,73
+5.2,?100 & up,Rush Hour Morning,Sunny,Tricycle,26
+9.42,?80-89,Rush Hour Evening,Sunny,Single Motor,68
+2.42,?30-39,Off-Peak,Rainy,Tricycle,24
+10.53,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.37,?50-59,Rush Hour Evening,Sunny,Single Motor,50
+14.05,?60-69,Off-Peak,Sunny,Tricycle,40
+3.93,?90-99,Rush Hour Morning,Rainy,Single Motor,52
+0.61,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.33,?70-79,Off-Peak,Rainy,Single Motor,89
+4.01,?100 & up,Rush Hour Morning,Sunny,Single Motor,43
+7.96,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.08,?30-39,Off-Peak,Sunny,Single Motor,24
+13.09,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.84,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.6,?60-69,Off-Peak,Sunny,Single Motor,45
+8.87,?90-99,Rush Hour Morning,Rainy,Single Motor,77
+2.3,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.63,?70-79,Off-Peak,Sunny,Tricycle,35
+6.74,?100 & up,Rush Hour Morning,Sunny,Single Motor,57
+10.98,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.55,?30-39,Off-Peak,Sunny,Tricycle,15
+12.91,?40-49,Rush Hour Morning,Sunny,Single Motor,82
+7.1,?50-59,Rush Hour Evening,Rainy,Single Motor,66
+1.25,?60-69,Off-Peak,Sunny,Tricycle,17
+13.3,?90-99,Rush Hour Morning,Sunny,Tricycle,41
+4.72,?20-29,Rush Hour Evening,Sunny,Single Motor,41
+8.57,?70-79,Off-Peak,Rainy,Single Motor,75
+5.86,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.08,?80-89,Rush Hour Evening,Sunny,Single Motor,66
+2.63,?30-39,Off-Peak,Rainy,Tricycle,24
+10.04,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.89,?50-59,Rush Hour Evening,Sunny,Single Motor,53
+14.58,?60-69,Off-Peak,Sunny,Tricycle,42
+3.69,?90-99,Rush Hour Morning,Rainy,Single Motor,51
+0.8,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.02,?70-79,Off-Peak,Rainy,Single Motor,88
+4.29,?100 & up,Rush Hour Morning,Sunny,Single Motor,45
+7.51,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.94,?30-39,Off-Peak,Sunny,Single Motor,27
+13.56,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.17,?50-59,Rush Hour Evening,Sunny,Tricycle,32
+5.74,?60-69,Off-Peak,Sunny,Single Motor,46
+8.19,?90-99,Rush Hour Morning,Rainy,Single Motor,72
+2.97,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.3,?70-79,Off-Peak,Sunny,Tricycle,35
+6.07,?100 & up,Rush Hour Morning,Sunny,Single Motor,53
+10.28,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.17,?30-39,Off-Peak,Sunny,Tricycle,14
+12.39,?40-49,Rush Hour Morning,Sunny,Single Motor,79
+7.93,?50-59,Rush Hour Evening,Rainy,Single Motor,70
+1.1,?60-69,Off-Peak,Sunny,Tricycle,17
+13.98,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.54,?20-29,Rush Hour Evening,Sunny,Single Motor,40
+8.8,?70-79,Off-Peak,Rainy,Single Motor,76
+5.06,?100 & up,Rush Hour Morning,Sunny,Tricycle,26
+9.73,?80-89,Rush Hour Evening,Sunny,Single Motor,70
+2.88,?30-39,Off-Peak,Rainy,Tricycle,24
+10.74,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.2,?50-59,Rush Hour Evening,Sunny,Single Motor,49
+14.36,?60-69,Off-Peak,Sunny,Tricycle,41
+3.51,?90-99,Rush Hour Morning,Rainy,Single Motor,50
+0.75,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.68,?70-79,Off-Peak,Rainy,Single Motor,91
+4.81,?100 & up,Rush Hour Morning,Sunny,Single Motor,48
+7.02,?80-89,Rush Hour Evening,Sunny,Tricycle,28
+1.66,?30-39,Off-Peak,Sunny,Single Motor,26
+13.72,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.38,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.98,?60-69,Off-Peak,Sunny,Single Motor,48
+8.44,?90-99,Rush Hour Morning,Rainy,Single Motor,74
+2.2,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.82,?70-79,Off-Peak,Sunny,Tricycle,36
+6.4,?100 & up,Rush Hour Morning,Sunny,Single Motor,55
+10.59,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.4,?30-39,Off-Peak,Sunny,Tricycle,15
+12.23,?40-49,Rush Hour Morning,Sunny,Single Motor,78
+7.41,?50-59,Rush Hour Evening,Rainy,Single Motor,67
+1.98,?60-69,Off-Peak,Sunny,Tricycle,17
+13.16,?90-99,Rush Hour Morning,Sunny,Tricycle,40
+4.37,?20-29,Rush Hour Evening,Sunny,Single Motor,39
+8.1,?70-79,Off-Peak,Rainy,Single Motor,72
+5.5,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.98,?80-89,Rush Hour Evening,Sunny,Single Motor,71
+2.7,?30-39,Off-Peak,Rainy,Tricycle,24
+10.18,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.77,?50-59,Rush Hour Evening,Sunny,Single Motor,52
+14.94,?60-69,Off-Peak,Sunny,Tricycle,42
+3.26,?90-99,Rush Hour Morning,Rainy,Single Motor,48
+0.93,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.58,?70-79,Off-Peak,Rainy,Single Motor,90
+4.12,?100 & up,Rush Hour Morning,Sunny,Single Motor,44
+7.84,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.2,?30-39,Off-Peak,Sunny,Single Motor,24
+13.48,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.7,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.27,?60-69,Off-Peak,Sunny,Single Motor,44
+8.72,?90-99,Rush Hour Morning,Rainy,Single Motor,76
+2.59,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.9,?70-79,Off-Peak,Sunny,Tricycle,36
+6.1,?100 & up,Rush Hour Morning,Sunny,Single Motor,53
+10.88,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.62,?30-39,Off-Peak,Sunny,Tricycle,15
+12.79,?40-49,Rush Hour Morning,Sunny,Single Motor,81
+7.65,?50-59,Rush Hour Evening,Rainy,Single Motor,68
+1.82,?60-69,Off-Peak,Sunny,Tricycle,17
+13.01,?90-99,Rush Hour Morning,Sunny,Tricycle,40
+4.98,?20-29,Rush Hour Evening,Sunny,Single Motor,42
+8.93,?70-79,Off-Peak,Rainy,Single Motor,77
+5.3,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.3,?80-89,Rush Hour Evening,Sunny,Single Motor,68
+2.17,?30-39,Off-Peak,Rainy,Tricycle,24
+10.84,?40-49,Rush Hour Morning,Sunny,Tricycle,32
+6.53,?50-59,Rush Hour Evening,Sunny,Single Motor,51
+14.47,?60-69,Off-Peak,Sunny,Tricycle,41
+3.85,?90-99,Rush Hour Morning,Rainy,Single Motor,52
+0.55,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.14,?70-79,Off-Peak,Rainy,Single Motor,88
+4.64,?100 & up,Rush Hour Morning,Sunny,Single Motor,47
+7.68,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.54,?30-39,Off-Peak,Sunny,Single Motor,25
+13.95,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.09,?50-59,Rush Hour Evening,Sunny,Tricycle,32
+5.02,?60-69,Off-Peak,Sunny,Single Motor,42
+8.04,?90-99,Rush Hour Morning,Rainy,Single Motor,71
+2.45,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.48,?70-79,Off-Peak,Sunny,Tricycle,35
+6.98,?100 & up,Rush Hour Morning,Sunny,Single Motor,59
+10.44,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.05,?30-39,Off-Peak,Sunny,Tricycle,14
+12.67,?40-49,Rush Hour Morning,Sunny,Single Motor,81
+7.21,?50-59,Rush Hour Evening,Rainy,Single Motor,66
+1.38,?60-69,Off-Peak,Sunny,Tricycle,17
+14.32,?90-99,Rush Hour Morning,Sunny,Tricycle,43
+4.06,?20-29,Rush Hour Evening,Sunny,Single Motor,37
+8.42,?70-79,Off-Peak,Rainy,Single Motor,74
+5.81,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.5,?80-89,Rush Hour Evening,Sunny,Single Motor,69
+2.81,?30-39,Off-Peak,Rainy,Tricycle,24
+10.3,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.99,?50-59,Rush Hour Evening,Sunny,Single Motor,54
+14.13,?60-69,Off-Peak,Sunny,Tricycle,40
+3.13,?90-99,Rush Hour Morning,Rainy,Single Motor,47
+1.01,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.94,?70-79,Off-Peak,Rainy,Single Motor,92
+4.43,?100 & up,Rush Hour Morning,Sunny,Single Motor,46
+7.29,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.77,?30-39,Off-Peak,Sunny,Single Motor,26
+13.37,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.93,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.49,?60-69,Off-Peak,Sunny,Single Motor,45
+8.99,?90-99,Rush Hour Morning,Rainy,Single Motor,78
+2.05,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.72,?70-79,Off-Peak,Sunny,Tricycle,35
+6.65,?100 & up,Rush Hour Morning,Sunny,Single Motor,56
+10.08,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.97,?30-39,Off-Peak,Sunny,Tricycle,16
+12.03,?40-49,Rush Hour Morning,Sunny,Single Motor,77
+7.82,?50-59,Rush Hour Evening,Rainy,Single Motor,69
+1.62,?60-69,Off-Peak,Sunny,Tricycle,17
+13.25,?90-99,Rush Hour Morning,Sunny,Tricycle,41
+4.85,?20-29,Rush Hour Evening,Sunny,Single Motor,41
+8.21,?70-79,Off-Peak,Rainy,Single Motor,72
+5.12,?100 & up,Rush Hour Morning,Sunny,Tricycle,26
+9.81,?80-89,Rush Hour Evening,Sunny,Single Motor,70
+2.37,?30-39,Off-Peak,Rainy,Tricycle,24
+10.41,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.05,?50-59,Rush Hour Evening,Sunny,Single Motor,48
+14.71,?60-69,Off-Peak,Sunny,Tricycle,42
+3.46,?90-99,Rush Hour Morning,Rainy,Single Motor,50
+0.87,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.46,?70-79,Off-Peak,Rainy,Single Motor,90
+4.5,?100 & up,Rush Hour Morning,Sunny,Single Motor,46
+7.4,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.3,?30-39,Off-Peak,Sunny,Single Motor,24
+13.65,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.56,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.66,?60-69,Off-Peak,Sunny,Single Motor,46
+8.34,?90-99,Rush Hour Morning,Rainy,Single Motor,73
+2.66,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.02,?70-79,Off-Peak,Sunny,Tricycle,34
+6.31,?100 & up,Rush Hour Morning,Sunny,Single Motor,54
+10.66,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.24,?30-39,Off-Peak,Sunny,Tricycle,14
+12.87,?40-49,Rush Hour Morning,Sunny,Single Motor,82
+7.01,?50-59,Rush Hour Evening,Rainy,Single Motor,65
+1.47,?60-69,Off-Peak,Sunny,Tricycle,17
+14.09,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.18,?20-29,Rush Hour Evening,Sunny,Single Motor,38
+8.48,?70-79,Off-Peak,Rainy,Single Motor,74
+5.94,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.16,?80-89,Rush Hour Evening,Sunny,Single Motor,67
+2.94,?30-39,Off-Peak,Rainy,Tricycle,24
+10.21,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.47,?50-59,Rush Hour Evening,Sunny,Single Motor,50
+14.2,?60-69,Off-Peak,Sunny,Tricycle,40
+3.01,?90-99,Rush Hour Morning,Rainy,Single Motor,46
+1.06,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.78,?70-79,Off-Peak,Rainy,Single Motor,91
+4.7,?100 & up,Rush Hour Morning,Sunny,Single Motor,47
+7.89,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.13,?30-39,Off-Peak,Sunny,Single Motor,24
+13.13,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.28,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.18,?60-69,Off-Peak,Sunny,Single Motor,43
+8.54,?90-99,Rush Hour Morning,Rainy,Single Motor,74
+2.86,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.53,?70-79,Off-Peak,Sunny,Tricycle,35
+6.23,?100 & up,Rush Hour Morning,Sunny,Single Motor,54
+10.95,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.8,?30-39,Off-Peak,Sunny,Tricycle,16
+12.51,?40-49,Rush Hour Morning,Sunny,Single Motor,80
+7.54,?50-59,Rush Hour Evening,Rainy,Single Motor,68
+1.02,?60-69,Off-Peak,Sunny,Tricycle,17
+14.86,?90-99,Rush Hour Morning,Sunny,Tricycle,44
+4.6,?20-29,Rush Hour Evening,Sunny,Single Motor,40
+8.72,?70-79,Off-Peak,Rainy,Single Motor,76
+5.78,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.65,?80-89,Rush Hour Evening,Sunny,Single Motor,70
+2.5,?30-39,Off-Peak,Rainy,Tricycle,24
+10.6,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.8,?50-59,Rush Hour Evening,Sunny,Single Motor,52
+14.63,?60-69,Off-Peak,Sunny,Tricycle,42
+3.37,?90-99,Rush Hour Morning,Rainy,Single Motor,49
+0.66,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.37,?70-79,Off-Peak,Rainy,Single Motor,89
+4.22,?100 & up,Rush Hour Morning,Sunny,Single Motor,44
+7.13,?80-89,Rush Hour Evening,Sunny,Tricycle,28
+1.71,?30-39,Off-Peak,Sunny,Single Motor,26
+13.88,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.63,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.41,?60-69,Off-Peak,Sunny,Single Motor,44
+8.1,?90-99,Rush Hour Morning,Rainy,Single Motor,71
+2.13,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.2,?70-79,Off-Peak,Sunny,Tricycle,34
+6.56,?100 & up,Rush Hour Morning,Sunny,Single Motor,56
+10.2,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.5,?30-39,Off-Peak,Sunny,Tricycle,15
+12.98,?40-49,Rush Hour Morning,Sunny,Single Motor,82
+7.99,?50-59,Rush Hour Evening,Rainy,Single Motor,70
+1.27,?60-69,Off-Peak,Sunny,Tricycle,17
+14.43,?90-99,Rush Hour Morning,Sunny,Tricycle,43
+4.46,?20-29,Rush Hour Evening,Sunny,Single Motor,39
+8.99,?70-79,Off-Peak,Rainy,Single Motor,77
+5.59,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.03,?80-89,Rush Hour Evening,Sunny,Single Motor,66
+2.28,?30-39,Off-Peak,Rainy,Tricycle,24
+10.7,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.33,?50-59,Rush Hour Evening,Sunny,Single Motor,50
+14.02,?60-69,Off-Peak,Sunny,Tricycle,40
+3.6,?90-99,Rush Hour Morning,Rainy,Single Motor,50
+0.99,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.28,?70-79,Off-Peak,Rainy,Single Motor,89
+4.75,?100 & up,Rush Hour Morning,Sunny,Single Motor,47
+7.98,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.88,?30-39,Off-Peak,Sunny,Single Motor,27
+13.1,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.1,?50-59,Rush Hour Evening,Sunny,Tricycle,32
+5.87,?60-69,Off-Peak,Sunny,Single Motor,47
+8.8,?90-99,Rush Hour Morning,Rainy,Single Motor,76
+2.74,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.99,?70-79,Off-Peak,Sunny,Tricycle,36
+6.02,?100 & up,Rush Hour Morning,Sunny,Single Motor,52
+10.51,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.1,?30-39,Off-Peak,Sunny,Tricycle,14
+12.72,?40-49,Rush Hour Morning,Sunny,Single Motor,81
+7.13,?50-59,Rush Hour Evening,Rainy,Single Motor,66
+1.72,?60-69,Off-Peak,Sunny,Tricycle,17
+14.17,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.31,?20-29,Rush Hour Evening,Sunny,Single Motor,38
+8.34,?70-79,Off-Peak,Rainy,Single Motor,73
+5.35,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.6,?80-89,Rush Hour Evening,Sunny,Single Motor,69
+2.01,?30-39,Off-Peak,Rainy,Tricycle,24
+10.9,?40-49,Rush Hour Morning,Sunny,Tricycle,32
+6.69,?50-59,Rush Hour Evening,Sunny,Single Motor,52
+14.54,?60-69,Off-Peak,Sunny,Tricycle,42
+3.9,?90-99,Rush Hour Morning,Rainy,Single Motor,52
+0.63,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.6,?70-79,Off-Peak,Rainy,Single Motor,90
+4.58,?100 & up,Rush Hour Morning,Sunny,Single Motor,46
+7.07,?80-89,Rush Hour Evening,Sunny,Tricycle,28
+1.58,?30-39,Off-Peak,Sunny,Single Motor,25
+13.44,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.8,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.22,?60-69,Off-Peak,Sunny,Single Motor,43
+8.23,?90-99,Rush Hour Morning,Rainy,Single Motor,72
+2.9,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.14,?70-79,Off-Peak,Sunny,Tricycle,34
+6.83,?100 & up,Rush Hour Morning,Sunny,Single Motor,58
+10.36,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.72,?30-39,Off-Peak,Sunny,Tricycle,15
+12.16,?40-49,Rush Hour Morning,Sunny,Single Motor,78
+7.34,?50-59,Rush Hour Evening,Rainy,Single Motor,67
+1.15,?60-69,Off-Peak,Sunny,Tricycle,17
+14.75,?90-99,Rush Hour Morning,Sunny,Tricycle,44
+4.02,?20-29,Rush Hour Evening,Sunny,Single Motor,37
+8.6,?70-79,Off-Peak,Rainy,Single Motor,75
+5.09,?100 & up,Rush Hour Morning,Sunny,Tricycle,26
+9.13,?80-89,Rush Hour Evening,Sunny,Single Motor,67
+2.4,?30-39,Off-Peak,Rainy,Tricycle,24
+10,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.23,?50-59,Rush Hour Evening,Sunny,Single Motor,49
+14.28,?60-69,Off-Peak,Sunny,Tricycle,41
+3.2,?90-99,Rush Hour Morning,Rainy,Single Motor,48
+1.1,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.83,?70-79,Off-Peak,Rainy,Single Motor,91
+4.93,?100 & up,Rush Hour Morning,Sunny,Single Motor,48
+7.77,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.34,?30-39,Off-Peak,Sunny,Single Motor,24
+13.77,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.41,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.78,?60-69,Off-Peak,Sunny,Single Motor,46
+8.49,?90-99,Rush Hour Morning,Rainy,Single Motor,74
+2.33,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.38,?70-79,Off-Peak,Sunny,Tricycle,35
+6.15,?100 & up,Rush Hour Morning,Sunny,Single Motor,53
+10.74,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.93,?30-39,Off-Peak,Sunny,Tricycle,16
+12.43,?40-49,Rush Hour Morning,Sunny,Single Motor,79
+7.88,?50-59,Rush Hour Evening,Rainy,Single Motor,69
+1.8,?60-69,Off-Peak,Sunny,Tricycle,17
+13.51,?90-99,Rush Hour Morning,Sunny,Tricycle,41
+4.24,?20-29,Rush Hour Evening,Sunny,Single Motor,38
+8.01,?70-79,Off-Peak,Rainy,Single Motor,71
+5.63,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.9,?80-89,Rush Hour Evening,Sunny,Single Motor,71
+2.06,?30-39,Off-Peak,Rainy,Tricycle,24
+10.5,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.57,?50-59,Rush Hour Evening,Sunny,Single Motor,51
+14.83,?60-69,Off-Peak,Sunny,Tricycle,42
+3.76,?90-99,Rush Hour Morning,Rainy,Single Motor,51
+0.7,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.9,?70-79,Off-Peak,Rainy,Single Motor,92
+4.36,?100 & up,Rush Hour Morning,Sunny,Single Motor,45
+7.33,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.9,?30-39,Off-Peak,Sunny,Single Motor,27
+13.33,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.99,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.33,?60-69,Off-Peak,Sunny,Single Motor,44
+8,?90-99,Rush Hour Morning,Rainy,Single Motor,71
+2.62,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.66,?70-79,Off-Peak,Sunny,Tricycle,35
+6.44,?100 & up,Rush Hour Morning,Sunny,Single Motor,55
+10.16,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.44,?30-39,Off-Peak,Sunny,Tricycle,15
+12.27,?40-49,Rush Hour Morning,Sunny,Single Motor,79
+7.48,?50-59,Rush Hour Evening,Rainy,Single Motor,68
+1.43,?60-69,Off-Peak,Sunny,Tricycle,17
+14.68,?90-99,Rush Hour Morning,Sunny,Tricycle,43
+4.1,?20-29,Rush Hour Evening,Sunny,Single Motor,37
+8.68,?70-79,Off-Peak,Rainy,Single Motor,75
+5.9,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.77,?80-89,Rush Hour Evening,Sunny,Single Motor,70
+2.98,?30-39,Off-Peak,Rainy,Tricycle,24
+10.1,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.09,?50-59,Rush Hour Evening,Sunny,Single Motor,48
+14.39,?60-69,Off-Peak,Sunny,Tricycle,41
+3.33,?90-99,Rush Hour Morning,Rainy,Single Motor,49
+1.14,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.09,?70-79,Off-Peak,Rainy,Single Motor,88
+4.97,?100 & up,Rush Hour Morning,Sunny,Single Motor,49
+7.22,?80-89,Rush Hour Evening,Sunny,Tricycle,28
+1.79,?30-39,Off-Peak,Sunny,Single Motor,26
+13,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.5,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.55,?60-69,Off-Peak,Sunny,Single Motor,45
+8.3,?90-99,Rush Hour Morning,Rainy,Single Motor,73
+2.25,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.87,?70-79,Off-Peak,Sunny,Tricycle,36
+6.79,?100 & up,Rush Hour Morning,Sunny,Single Motor,57
+10.84,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.06,?30-39,Off-Peak,Sunny,Tricycle,14
+12.6,?40-49,Rush Hour Morning,Sunny,Single Motor,80
+7.05,?50-59,Rush Hour Evening,Rainy,Single Motor,65
+1.93,?60-69,Off-Peak,Sunny,Tricycle,17
+14.98,?90-99,Rush Hour Morning,Sunny,Tricycle,44
+4.68,?20-29,Rush Hour Evening,Sunny,Single Motor,41
+8.15,?70-79,Off-Peak,Rainy,Single Motor,72
+5.46,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.24,?80-89,Rush Hour Evening,Sunny,Single Motor,67
+2.55,?30-39,Off-Peak,Rainy,Tricycle,24
+10.33,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.92,?50-59,Rush Hour Evening,Sunny,Single Motor,53
+14.09,?60-69,Off-Peak,Sunny,Tricycle,40
+3.81,?90-99,Rush Hour Morning,Rainy,Single Motor,52
+0.89,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.5,?70-79,Off-Peak,Rainy,Single Motor,90
+4.49,?100 & up,Rush Hour Morning,Sunny,Single Motor,46
+7.59,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.23,?30-39,Off-Peak,Sunny,Single Motor,24
+13.6,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.21,?50-59,Rush Hour Evening,Sunny,Tricycle,32
+5.14,?60-69,Off-Peak,Sunny,Single Motor,43
+8.66,?90-99,Rush Hour Morning,Rainy,Single Motor,75
+2.18,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.06,?70-79,Off-Peak,Sunny,Tricycle,34
+6.36,?100 & up,Rush Hour Morning,Sunny,Single Motor,54
+10.49,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.66,?30-39,Off-Peak,Sunny,Tricycle,15
+12.82,?40-49,Rush Hour Morning,Sunny,Single Motor,81
+7.75,?50-59,Rush Hour Evening,Rainy,Single Motor,69
+1.36,?60-69,Off-Peak,Sunny,Tricycle,17
+14.89,?90-99,Rush Hour Morning,Sunny,Tricycle,44
+4.27,?20-29,Rush Hour Evening,Sunny,Single Motor,38
+8.38,?70-79,Off-Peak,Rainy,Single Motor,74
+5.99,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.46,?80-89,Rush Hour Evening,Sunny,Single Motor,69
+2.72,?30-39,Off-Peak,Rainy,Tricycle,24
+10.96,?40-49,Rush Hour Morning,Sunny,Tricycle,32
+6.85,?50-59,Rush Hour Evening,Sunny,Single Motor,53
+14.16,?60-69,Off-Peak,Sunny,Tricycle,40
+3.48,?90-99,Rush Hour Morning,Rainy,Single Motor,50
+0.96,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.18,?70-79,Off-Peak,Rainy,Single Motor,88
+4.05,?100 & up,Rush Hour Morning,Sunny,Single Motor,43
+7.44,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.46,?30-39,Off-Peak,Sunny,Single Motor,25
+13.29,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.03,?50-59,Rush Hour Evening,Sunny,Tricycle,32
+5.69,?60-69,Off-Peak,Sunny,Single Motor,46
+8.91,?90-99,Rush Hour Morning,Rainy,Single Motor,77
+2.48,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.27,?70-79,Off-Peak,Sunny,Tricycle,35
+6.69,?100 & up,Rush Hour Morning,Sunny,Single Motor,56
+10.7,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.28,?30-39,Off-Peak,Sunny,Tricycle,15
+12.07,?40-49,Rush Hour Morning,Sunny,Single Motor,77
+7.62,?50-59,Rush Hour Evening,Rainy,Single Motor,68
+1.56,?60-69,Off-Peak,Sunny,Tricycle,17
+14.5,?90-99,Rush Hour Morning,Sunny,Tricycle,43
+4.89,?20-29,Rush Hour Evening,Sunny,Single Motor,42
+8.52,?70-79,Off-Peak,Rainy,Single Motor,74
+5.71,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9,?80-89,Rush Hour Evening,Sunny,Single Motor,66
+2.21,?30-39,Off-Peak,Rainy,Tricycle,24
+10.24,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.4,?50-59,Rush Hour Evening,Sunny,Single Motor,50
+14.9,?60-69,Off-Peak,Sunny,Tricycle,42
+3.99,?90-99,Rush Hour Morning,Rainy,Single Motor,52
+0.5,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.99,?70-79,Off-Peak,Rainy,Single Motor,92
+4.63,?100 & up,Rush Hour Morning,Sunny,Single Motor,47
+7.18,?80-89,Rush Hour Evening,Sunny,Tricycle,28
+1.03,?30-39,Off-Peak,Sunny,Single Motor,24
+13.84,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.75,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.05,?60-69,Off-Peak,Sunny,Single Motor,42
+8.15,?90-99,Rush Hour Morning,Rainy,Single Motor,72
+2.83,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.77,?70-79,Off-Peak,Sunny,Tricycle,36
+6.94,?100 & up,Rush Hour Morning,Sunny,Single Motor,58
+10.62,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.58,?30-39,Off-Peak,Sunny,Tricycle,15
+12.35,?40-49,Rush Hour Morning,Sunny,Single Motor,79
+7.25,?50-59,Rush Hour Evening,Rainy,Single Motor,67
+1.67,?60-69,Off-Peak,Sunny,Tricycle,17
+14.24,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.52,?20-29,Rush Hour Evening,Sunny,Single Motor,40
+8.84,?70-79,Off-Peak,Rainy,Single Motor,76
+5.26,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.38,?80-89,Rush Hour Evening,Sunny,Single Motor,68
+2.1,?30-39,Off-Peak,Rainy,Tricycle,24
+10.46,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.72,?50-59,Rush Hour Evening,Sunny,Single Motor,52
+14.6,?60-69,Off-Peak,Sunny,Tricycle,42
+3.17,?90-99,Rush Hour Morning,Rainy,Single Motor,48
+1.19,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.71,?70-79,Off-Peak,Rainy,Single Motor,91
+4.18,?100 & up,Rush Hour Morning,Sunny,Single Motor,44
+7.04,?80-89,Rush Hour Evening,Sunny,Tricycle,28
+1.27,?30-39,Off-Peak,Sunny,Single Motor,24
+13.52,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.32,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.82,?60-69,Off-Peak,Sunny,Single Motor,46
+8.4,?90-99,Rush Hour Morning,Rainy,Single Motor,74
+2.38,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.94,?70-79,Off-Peak,Sunny,Tricycle,36
+6.59,?100 & up,Rush Hour Morning,Sunny,Single Motor,56
+10.91,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.88,?30-39,Off-Peak,Sunny,Tricycle,16
+12.95,?40-49,Rush Hour Morning,Sunny,Single Motor,82
+7.92,?50-59,Rush Hour Evening,Rainy,Single Motor,70
+1.52,?60-69,Off-Peak,Sunny,Tricycle,17
+14.35,?90-99,Rush Hour Morning,Sunny,Tricycle,43
+4.81,?20-29,Rush Hour Evening,Sunny,Single Motor,41
+8.25,?70-79,Off-Peak,Rainy,Single Motor,73
+5.95,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.7,?80-89,Rush Hour Evening,Sunny,Single Motor,70
+2.68,?30-39,Off-Peak,Rainy,Tricycle,24
+10.13,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.16,?50-59,Rush Hour Evening,Sunny,Single Motor,49
+14.06,?60-69,Off-Peak,Sunny,Tricycle,40
+3.56,?90-99,Rush Hour Morning,Rainy,Single Motor,50
+0.82,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.41,?70-79,Off-Peak,Rainy,Single Motor,90
+4.74,?100 & up,Rush Hour Morning,Sunny,Single Motor,47
+7.54,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.83,?30-39,Off-Peak,Sunny,Single Motor,26
+13.18,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.66,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.45,?60-69,Off-Peak,Sunny,Single Motor,45
+8.76,?90-99,Rush Hour Morning,Rainy,Single Motor,76
+2.93,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.45,?70-79,Off-Peak,Sunny,Tricycle,35
+6.27,?100 & up,Rush Hour Morning,Sunny,Single Motor,54
+10.8,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.19,?30-39,Off-Peak,Sunny,Tricycle,14
+12.59,?40-49,Rush Hour Morning,Sunny,Single Motor,80
+7.38,?50-59,Rush Hour Evening,Rainy,Single Motor,67
+1.06,?60-69,Off-Peak,Sunny,Tricycle,17
+14.65,?90-99,Rush Hour Morning,Sunny,Tricycle,43
+4.14,?20-29,Rush Hour Evening,Sunny,Single Motor,37
+8.07,?70-79,Off-Peak,Rainy,Single Motor,71
+5.54,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.55,?80-89,Rush Hour Evening,Sunny,Single Motor,69
+2.43,?30-39,Off-Peak,Rainy,Tricycle,24
+10.79,?40-49,Rush Hour Morning,Sunny,Tricycle,32
+6.64,?50-59,Rush Hour Evening,Sunny,Single Motor,51
+14.44,?60-69,Off-Peak,Sunny,Tricycle,41
+3.05,?90-99,Rush Hour Morning,Rainy,Single Motor,47
+1.23,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.05,?70-79,Off-Peak,Rainy,Single Motor,88
+4.33,?100 & up,Rush Hour Morning,Sunny,Single Motor,45
+7.81,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.98,?30-39,Off-Peak,Sunny,Single Motor,27
+13.92,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.54,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.3,?60-69,Off-Peak,Sunny,Single Motor,44
+8.58,?90-99,Rush Hour Morning,Rainy,Single Motor,75
+2.58,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.59,?70-79,Off-Peak,Sunny,Tricycle,35
+6.52,?100 & up,Rush Hour Morning,Sunny,Single Motor,55
+10.03,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.36,?30-39,Off-Peak,Sunny,Tricycle,15
+12.86,?40-49,Rush Hour Morning,Sunny,Single Motor,82
+7.17,?50-59,Rush Hour Evening,Rainy,Single Motor,66
+1.86,?60-69,Off-Peak,Sunny,Tricycle,17
+14.01,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.94,?20-29,Rush Hour Evening,Sunny,Single Motor,42
+8.9,?70-79,Off-Peak,Rainy,Single Motor,77
+5.16,?100 & up,Rush Hour Morning,Sunny,Tricycle,26
+9.17,?80-89,Rush Hour Evening,Sunny,Single Motor,67
+2.8,?30-39,Off-Peak,Rainy,Tricycle,24
+10.66,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.19,?50-59,Rush Hour Evening,Sunny,Single Motor,49
+14.78,?60-69,Off-Peak,Sunny,Tricycle,42
+3.66,?90-99,Rush Hour Morning,Rainy,Single Motor,51
+0.59,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.31,?70-79,Off-Peak,Rainy,Single Motor,89
+4.09,?100 & up,Rush Hour Morning,Sunny,Single Motor,43
+7.48,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.09,?30-39,Off-Peak,Sunny,Single Motor,24
+13.4,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.88,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.94,?60-69,Off-Peak,Sunny,Single Motor,47
+8.27,?90-99,Rush Hour Morning,Rainy,Single Motor,73
+2.02,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.17,?70-79,Off-Peak,Sunny,Tricycle,34
+6.06,?100 & up,Rush Hour Morning,Sunny,Single Motor,53
+10.99,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.92,?30-39,Off-Peak,Sunny,Tricycle,16
+12.76,?40-49,Rush Hour Morning,Sunny,Single Motor,81
+7.71,?50-59,Rush Hour Evening,Rainy,Single Motor,69
+1.32,?60-69,Off-Peak,Sunny,Tricycle,17
+14.21,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.41,?20-29,Rush Hour Evening,Sunny,Single Motor,39
+8.76,?70-79,Off-Peak,Rainy,Single Motor,76
+5.42,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.86,?80-89,Rush Hour Evening,Sunny,Single Motor,71
+2.62,?30-39,Off-Peak,Rainy,Tricycle,24
+10.56,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.3,?50-59,Rush Hour Evening,Sunny,Single Motor,49
+14.57,?60-69,Off-Peak,Sunny,Tricycle,42
+3.29,?90-99,Rush Hour Morning,Rainy,Single Motor,49
+0.78,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.87,?70-79,Off-Peak,Rainy,Single Motor,91
+4.25,?100 & up,Rush Hour Morning,Sunny,Single Motor,44
+7.1,?80-89,Rush Hour Evening,Sunny,Tricycle,28
+1.64,?30-39,Off-Peak,Sunny,Single Motor,26
+13.06,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.18,?50-59,Rush Hour Evening,Sunny,Tricycle,32
+5.08,?60-69,Off-Peak,Sunny,Single Motor,42
+8.95,?90-99,Rush Hour Morning,Rainy,Single Motor,77
+2.35,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.34,?70-79,Off-Peak,Sunny,Tricycle,35
+6.9,?100 & up,Rush Hour Morning,Sunny,Single Motor,58
+10.32,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.84,?30-39,Off-Peak,Sunny,Tricycle,16
+12.19,?40-49,Rush Hour Morning,Sunny,Single Motor,78
+7.08,?50-59,Rush Hour Evening,Rainy,Single Motor,66
+1.2,?60-69,Off-Peak,Sunny,Tricycle,17
+14.12,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.77,?20-29,Rush Hour Evening,Sunny,Single Motor,41
+8.19,?70-79,Off-Peak,Rainy,Single Motor,72
+5,?100 & up,Rush Hour Morning,Sunny,Tricycle,26
+9.28,?80-89,Rush Hour Evening,Sunny,Single Motor,68
+2.9,?30-39,Off-Peak,Rainy,Tricycle,24
+10.07,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.5,?50-59,Rush Hour Evening,Sunny,Single Motor,51
+14.99,?60-69,Off-Peak,Sunny,Tricycle,42
+3.4,?90-99,Rush Hour Morning,Rainy,Single Motor,49
+1.03,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.64,?70-79,Off-Peak,Rainy,Single Motor,90
+4.54,?100 & up,Rush Hour Morning,Sunny,Single Motor,46
+7.63,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.16,?30-39,Off-Peak,Sunny,Single Motor,24
+13.69,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.36,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.7,?60-69,Off-Peak,Sunny,Single Motor,46
+8.2,?90-99,Rush Hour Morning,Rainy,Single Motor,72
+2.7,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11,?70-79,Off-Peak,Sunny,Tricycle,34
+6.2,?100 & up,Rush Hour Morning,Sunny,Single Motor,53
+10.24,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.76,?30-39,Off-Peak,Sunny,Tricycle,16
+12.44,?40-49,Rush Hour Morning,Sunny,Single Motor,79
+7.75,?50-59,Rush Hour Evening,Rainy,Single Motor,70
+1.76,?60-69,Off-Peak,Sunny,Tricycle,17
+13.21,?90-99,Rush Hour Morning,Sunny,Tricycle,41
+4.85,?20-29,Rush Hour Evening,Sunny,Single Motor,41
+8.47,?70-79,Off-Peak,Rainy,Single Motor,74
+5.57,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.34,?80-89,Rush Hour Evening,Sunny,Single Motor,68
+2.51,?30-39,Off-Peak,Rainy,Tricycle,24
+10.88,?40-49,Rush Hour Morning,Sunny,Tricycle,32
+6.82,?50-59,Rush Hour Evening,Sunny,Single Motor,52
+14.62,?60-69,Off-Peak,Sunny,Tricycle,42
+3.16,?90-99,Rush Hour Morning,Rainy,Single Motor,48
+1.17,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.69,?70-79,Off-Peak,Rainy,Single Motor,91
+4.65,?100 & up,Rush Hour Morning,Sunny,Single Motor,47
+7.91,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.45,?30-39,Off-Peak,Sunny,Single Motor,25
+13.8,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.74,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.62,?60-69,Off-Peak,Sunny,Single Motor,46
+8.59,?90-99,Rush Hour Morning,Rainy,Single Motor,74
+2.15,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.83,?70-79,Off-Peak,Sunny,Tricycle,36
+6.09,?100 & up,Rush Hour Morning,Sunny,Single Motor,53
+10.48,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.63,?30-39,Off-Peak,Sunny,Tricycle,15
+12.38,?40-49,Rush Hour Morning,Sunny,Single Motor,79
+7.56,?50-59,Rush Hour Evening,Rainy,Single Motor,69
+1.3,?60-69,Off-Peak,Sunny,Tricycle,17
+14.11,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.67,?20-29,Rush Hour Evening,Sunny,Single Motor,41
+8.32,?70-79,Off-Peak,Rainy,Single Motor,73
+5.22,?100 & up,Rush Hour Morning,Sunny,Tricycle,26
+9.69,?80-89,Rush Hour Evening,Sunny,Single Motor,70
+2.23,?30-39,Off-Peak,Rainy,Tricycle,24
+10.32,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.54,?50-59,Rush Hour Evening,Sunny,Single Motor,50
+14.32,?60-69,Off-Peak,Sunny,Tricycle,41
+3.52,?90-99,Rush Hour Morning,Rainy,Single Motor,50
+0.72,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.16,?70-79,Off-Peak,Rainy,Single Motor,88
+4.28,?100 & up,Rush Hour Morning,Sunny,Single Motor,45
+7.3,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.73,?30-39,Off-Peak,Sunny,Single Motor,26
+13.47,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.41,?50-59,Rush Hour Evening,Sunny,Tricycle,33
+5.38,?60-69,Off-Peak,Sunny,Single Motor,44
+8.94,?90-99,Rush Hour Morning,Rainy,Single Motor,77
+2.67,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.11,?70-79,Off-Peak,Sunny,Tricycle,34
+6.76,?100 & up,Rush Hour Morning,Sunny,Single Motor,57
+10.19,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.22,?30-39,Off-Peak,Sunny,Tricycle,15
+12.02,?40-49,Rush Hour Morning,Sunny,Single Motor,77
+7.4,?50-59,Rush Hour Evening,Rainy,Single Motor,68
+1.9,?60-69,Off-Peak,Sunny,Tricycle,17
+14.75,?90-99,Rush Hour Morning,Sunny,Tricycle,44
+4.09,?20-29,Rush Hour Evening,Sunny,Single Motor,37
+8.55,?70-79,Off-Peak,Rainy,Single Motor,74
+5.87,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.43,?80-89,Rush Hour Evening,Sunny,Single Motor,68
+2.83,?30-39,Off-Peak,Rainy,Tricycle,24
+10.62,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.38,?50-59,Rush Hour Evening,Sunny,Single Motor,50
+14.84,?60-69,Off-Peak,Sunny,Tricycle,42
+3.14,?90-99,Rush Hour Morning,Rainy,Single Motor,47
+0.83,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.8,?70-79,Off-Peak,Rainy,Single Motor,91
+4.77,?100 & up,Rush Hour Morning,Sunny,Single Motor,48
+7.82,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.35,?30-39,Off-Peak,Sunny,Single Motor,24
+13.15,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.81,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.24,?60-69,Off-Peak,Sunny,Single Motor,44
+8.22,?90-99,Rush Hour Morning,Rainy,Single Motor,72
+2.08,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.5,?70-79,Off-Peak,Sunny,Tricycle,35
+6.05,?100 & up,Rush Hour Morning,Sunny,Single Motor,52
+10.97,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.89,?30-39,Off-Peak,Sunny,Tricycle,16
+12.54,?40-49,Rush Hour Morning,Sunny,Single Motor,80
+7.14,?50-59,Rush Hour Evening,Rainy,Single Motor,66
+1.61,?60-69,Off-Peak,Sunny,Tricycle,17
+13.99,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.38,?20-29,Rush Hour Evening,Sunny,Single Motor,39
+8.97,?70-79,Off-Peak,Rainy,Single Motor,77
+5.51,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.07,?80-89,Rush Hour Evening,Sunny,Single Motor,66
+2.37,?30-39,Off-Peak,Rainy,Tricycle,24
+10.28,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.67,?50-59,Rush Hour Evening,Sunny,Single Motor,51
+14.51,?60-69,Off-Peak,Sunny,Tricycle,42
+3.79,?90-99,Rush Hour Morning,Rainy,Single Motor,51
+0.64,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.26,?70-79,Off-Peak,Rainy,Single Motor,89
+4.4,?100 & up,Rush Hour Morning,Sunny,Single Motor,45
+7.51,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.59,?30-39,Off-Peak,Sunny,Single Motor,25
+13.86,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.13,?50-59,Rush Hour Evening,Sunny,Tricycle,32
+5.79,?60-69,Off-Peak,Sunny,Single Motor,47
+8.74,?90-99,Rush Hour Morning,Rainy,Single Motor,75
+2.41,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.23,?70-79,Off-Peak,Sunny,Tricycle,35
+6.6,?100 & up,Rush Hour Morning,Sunny,Single Motor,56
+10.01,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.33,?30-39,Off-Peak,Sunny,Tricycle,15
+12.13,?40-49,Rush Hour Morning,Sunny,Single Motor,78
+7.86,?50-59,Rush Hour Evening,Rainy,Single Motor,69
+1.08,?60-69,Off-Peak,Sunny,Tricycle,17
+14.37,?90-99,Rush Hour Morning,Sunny,Tricycle,43
+4.88,?20-29,Rush Hour Evening,Sunny,Single Motor,41
+8.26,?70-79,Off-Peak,Rainy,Single Motor,73
+5.05,?100 & up,Rush Hour Morning,Sunny,Tricycle,26
+9.22,?80-89,Rush Hour Evening,Sunny,Single Motor,67
+2.99,?30-39,Off-Peak,Rainy,Tricycle,24
+10.04,?40-49,Rush Hour Morning,Sunny,Tricycle,30
+6.15,?50-59,Rush Hour Evening,Sunny,Single Motor,49
+14.93,?60-69,Off-Peak,Sunny,Tricycle,42
+3.43,?90-99,Rush Hour Morning,Rainy,Single Motor,49
+1.12,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.91,?70-79,Off-Peak,Rainy,Single Motor,92
+4.53,?100 & up,Rush Hour Morning,Sunny,Single Motor,46
+7.69,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.81,?30-39,Off-Peak,Sunny,Single Motor,26
+13.58,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.59,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.47,?60-69,Off-Peak,Sunny,Single Motor,45
+8.35,?90-99,Rush Hour Morning,Rainy,Single Motor,73
+2.61,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.6,?70-79,Off-Peak,Sunny,Tricycle,35
+6.97,?100 & up,Rush Hour Morning,Sunny,Single Motor,59
+10.69,?80-89,Rush Hour Evening,Rainy,Tricycle,41
+3.04,?30-39,Off-Peak,Sunny,Tricycle,14
+12.68,?40-49,Rush Hour Morning,Sunny,Single Motor,81
+7.19,?50-59,Rush Hour Evening,Rainy,Single Motor,66
+1.46,?60-69,Off-Peak,Sunny,Tricycle,17
+14.04,?90-99,Rush Hour Morning,Sunny,Tricycle,42
+4.17,?20-29,Rush Hour Evening,Sunny,Single Motor,38
+8.86,?70-79,Off-Peak,Rainy,Single Motor,77
+5.67,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.79,?80-89,Rush Hour Evening,Sunny,Single Motor,70
+2.22,?30-39,Off-Peak,Rainy,Tricycle,24
+10.39,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.43,?50-59,Rush Hour Evening,Sunny,Single Motor,50
+14.25,?60-69,Off-Peak,Sunny,Tricycle,40
+3.96,?90-99,Rush Hour Morning,Rainy,Single Motor,52
+0.57,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.4,?70-79,Off-Peak,Rainy,Single Motor,90
+4.83,?100 & up,Rush Hour Morning,Sunny,Single Motor,48
+7.36,?80-89,Rush Hour Evening,Sunny,Tricycle,29
+1.01,?30-39,Off-Peak,Sunny,Single Motor,24
+13.36,?40-49,Rush Hour Morning,Rainy,Tricycle,41
+8.06,?50-59,Rush Hour Evening,Sunny,Tricycle,32
+5.84,?60-69,Off-Peak,Sunny,Single Motor,47
+8.52,?90-99,Rush Hour Morning,Rainy,Single Motor,74
+2.88,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.4,?70-79,Off-Peak,Sunny,Tricycle,35
+6.26,?100 & up,Rush Hour Morning,Sunny,Single Motor,54
+10.94,?80-89,Rush Hour Evening,Rainy,Tricycle,42
+3.71,?30-39,Off-Peak,Sunny,Tricycle,15
+12.21,?40-49,Rush Hour Morning,Sunny,Single Motor,79
+7.66,?50-59,Rush Hour Evening,Rainy,Single Motor,68
+1.97,?60-69,Off-Peak,Sunny,Tricycle,17
+14.45,?90-99,Rush Hour Morning,Sunny,Tricycle,43
+4.45,?20-29,Rush Hour Evening,Sunny,Single Motor,39
+8.13,?70-79,Off-Peak,Rainy,Single Motor,72
+5.33,?100 & up,Rush Hour Morning,Sunny,Tricycle,27
+9.15,?80-89,Rush Hour Evening,Sunny,Single Motor,67
+2.47,?30-39,Off-Peak,Rainy,Tricycle,24
+10.73,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.75,?50-59,Rush Hour Evening,Sunny,Single Motor,52
+14.53,?60-69,Off-Peak,Sunny,Tricycle,42
+3.25,?90-99,Rush Hour Morning,Rainy,Single Motor,48
+0.9,?20-29,Rush Hour Evening,Sunny,Tricycle,13
+12.52,?70-79,Off-Peak,Rainy,Single Motor,90
+4.14,?100 & up,Rush Hour Morning,Sunny,Single Motor,44
+7.88,?80-89,Rush Hour Evening,Sunny,Tricycle,30
+1.62,?30-39,Off-Peak,Sunny,Single Motor,26
+13.05,?40-49,Rush Hour Morning,Rainy,Tricycle,40
+8.89,?50-59,Rush Hour Evening,Sunny,Tricycle,34
+5.54,?60-69,Off-Peak,Sunny,Single Motor,46
+8.07,?90-99,Rush Hour Morning,Rainy,Single Motor,71
+2.16,?20-29,Rush Hour Evening,Rainy,Tricycle,23
+11.96,?70-79,Off-Peak,Sunny,Tricycle,36
+6.61,?100 & up,Rush Hour Morning,Sunny,Single Motor,56
+10.26,?80-89,Rush Hour Evening,Rainy,Tricycle,40
+3.49,?30-39,Off-Peak,Sunny,Tricycle,15
+12.89,?40-49,Rush Hour Morning,Sunny,Single Motor,82
+7.43,?50-59,Rush Hour Evening,Rainy,Single Motor,68
+1.35,?60-69,Off-Peak,Sunny,Tricycle,17
+14.87,?90-99,Rush Hour Morning,Sunny,Tricycle,44
+4.97,?20-29,Rush Hour Evening,Sunny,Single Motor,42
+8.63,?70-79,Off-Peak,Rainy,Single Motor,75
+5.98,?100 & up,Rush Hour Morning,Sunny,Tricycle,28
+9.53,?80-89,Rush Hour Evening,Sunny,Single Motor,69
+2.76,?30-39,Off-Peak,Rainy,Tricycle,24
+10.42,?40-49,Rush Hour Morning,Sunny,Tricycle,31
+6.24,?50-59,Rush Hour Evening,Sunny,Single Motor,49
+14.18,?60-69,Off-Peak,Sunny,Tricycle,40
+3.62,?90-99,Rush Hour Morning,Rainy,Single Motor,50
