@@ -241,8 +241,8 @@ def predict():
         # Make prediction using the full pipeline
         predicted_fare = prepare_and_predict(data)
         
-        # Round to 2 decimal places
-        predicted_fare = round(predicted_fare, 2)
+        # Round to whole number (no decimals for tricycle fares)
+        predicted_fare = round(predicted_fare)
         
         # Ensure non-negative fare
         predicted_fare = max(0, predicted_fare)

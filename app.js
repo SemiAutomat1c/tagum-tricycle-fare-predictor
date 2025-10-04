@@ -435,13 +435,14 @@ function displayPrediction(fare) {
     const resultDiv = document.getElementById('predictionResult');
     const fareAmount = document.getElementById('fareAmount');
     
-    fareAmount.textContent = `₱${fare.toFixed(2)}`;
+    // Display as whole number (no decimals for tricycle fares)
+    fareAmount.textContent = `₱${Math.round(fare)}`;
     resultDiv.style.display = 'block';
     
     // Scroll to result
     resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     
-    console.log(`Prediction displayed: ₱${fare.toFixed(2)}`);
+    console.log(`Prediction displayed: ₱${Math.round(fare)}`);
 }
 
 /**
