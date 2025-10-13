@@ -72,9 +72,15 @@
             <section class="parameters-section">
                 <h2>Fare Prediction Parameters</h2>
                 
+                <!-- Route Options Container -->
+                <div id="routeOptionsContainer" class="route-options-container" style="display: none;">
+                    <h3 class="route-options-title">Available Routes</h3>
+                    <!-- Route options will be dynamically inserted here -->
+                </div>
+                
                 <form id="fareForm">
-                    <!-- Distance Display -->
-                    <div class="form-group">
+                    <!-- Distance Display - Full Width -->
+                    <div class="form-group full-width">
                         <label for="distance">Distance (km)</label>
                         <input 
                             type="text" 
@@ -85,56 +91,59 @@
                         >
                     </div>
 
-                    <!-- Fuel Price -->
-                    <div class="form-group">
-                        <label for="fuelPrice">Fuel Price Range (₱/liter)</label>
-                        <select id="fuelPrice" class="form-control" required>
-                            <option value="">-- Select --</option>
-                            <option value="₱20-29">₱20-29</option>
-                            <option value="₱30-39">₱30-39</option>
-                            <option value="₱40-49">₱40-49</option>
-                            <option value="₱50-59">₱50-59</option>
-                            <option value="₱60-69">₱60-69</option>
-                            <option value="₱70-79">₱70-79</option>
-                            <option value="₱80-89">₱80-89</option>
-                            <option value="₱90-99">₱90-99</option>
-                            <option value="₱100 & up">₱100 & up</option>
-                        </select>
-                    </div>
+                    <!-- Form Grid for 2 columns -->
+                    <div class="form-grid">
+                        <!-- Fuel Price -->
+                        <div class="form-group">
+                            <label for="fuelPrice">Fuel Price (₱/liter)</label>
+                            <select id="fuelPrice" class="form-control" required>
+                                <option value="">-- Select --</option>
+                                <option value="₱20-29">₱20-29</option>
+                                <option value="₱30-39">₱30-39</option>
+                                <option value="₱40-49">₱40-49</option>
+                                <option value="₱50-59">₱50-59</option>
+                                <option value="₱60-69">₱60-69</option>
+                                <option value="₱70-79">₱70-79</option>
+                                <option value="₱80-89">₱80-89</option>
+                                <option value="₱90-99">₱90-99</option>
+                                <option value="₱100 & up">₱100 & up</option>
+                            </select>
+                        </div>
 
-                    <!-- Time of Day -->
-                    <div class="form-group">
-                        <label for="timeOfDay">Time of Day</label>
-                        <select id="timeOfDay" class="form-control" required>
-                            <option value="">-- Select --</option>
-                            <option value="Rush Hour Morning">Rush Hour Morning</option>
-                            <option value="Off-Peak">Off-Peak</option>
-                            <option value="Rush Hour Evening">Rush Hour Evening</option>
-                        </select>
-                    </div>
+                        <!-- Time of Day -->
+                        <div class="form-group">
+                            <label for="timeOfDay">Time of Day</label>
+                            <select id="timeOfDay" class="form-control" required>
+                                <option value="">-- Select --</option>
+                                <option value="Rush Hour Morning">Rush Hour Morning</option>
+                                <option value="Off-Peak">Off-Peak</option>
+                                <option value="Rush Hour Evening">Rush Hour Evening</option>
+                            </select>
+                        </div>
 
-                    <!-- Weather -->
-                    <div class="form-group">
-                        <label for="weather">Weather Condition</label>
-                        <select id="weather" class="form-control" required>
-                            <option value="">-- Select --</option>
-                            <option value="Sunny">☀️ Sunny</option>
-                            <option value="Rainy">🌧️ Rainy</option>
-                        </select>
-                    </div>
+                        <!-- Weather -->
+                        <div class="form-group">
+                            <label for="weather">Weather</label>
+                            <select id="weather" class="form-control" required>
+                                <option value="">-- Select --</option>
+                                <option value="Sunny">☀️ Sunny</option>
+                                <option value="Rainy">🌧️ Rainy</option>
+                            </select>
+                        </div>
 
-                    <!-- Vehicle Type -->
-                    <div class="form-group">
-                        <label for="vehicleType">Vehicle Type</label>
-                        <select id="vehicleType" class="form-control" required>
-                            <option value="">-- Select --</option>
-                            <option value="Single Motor">Single Motor</option>
-                            <option value="Tricycle">Tricycle</option>
-                        </select>
+                        <!-- Vehicle Type -->
+                        <div class="form-group">
+                            <label for="vehicleType">Vehicle Type</label>
+                            <select id="vehicleType" class="form-control" required>
+                                <option value="">-- Select --</option>
+                                <option value="Single Motor">Single Motor</option>
+                                <option value="Tricycle">Tricycle</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" id="predictBtn" class="btn btn-primary">
+                    <button type="submit" id="predictBtn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
                         <span class="btn-text">Predict Fare</span>
                         <span class="spinner" style="display: none;">⏳</span>
                     </button>

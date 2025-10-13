@@ -25,6 +25,9 @@ let destinationMarker = null;
 let routeLine = null;
 let currentRoute = null;
 let isSettingOrigin = false;
+let availableRoutes = []; // Store all available route alternatives
+let routeLines = []; // Store all route polylines for visualization
+let selectedRouteIndex = 0; // Currently selected route index
 
 // Popular destinations in Tagum City with accurate coordinates
 const DESTINATIONS = [
@@ -255,7 +258,7 @@ function updateDestinationCoordinates(lat, lng) {
 // ============================================
 
 /**
- * Calculate route using OSRM API
+ * Calculate route using OSRM API with alternatives
  */
 async function calculateRoute() {
     if (!originMarker || !destinationMarker) {
@@ -266,11 +269,11 @@ async function calculateRoute() {
     const origin = originMarker.getLatLng();
     const destination = destinationMarker.getLatLng();
     
-    // OSRM expects lon,lat format
-    const url = `${CONFIG.osrmEndpoint}/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson`;
+    // OSRM expects lon,lat format - request alternative routes
+    const url = `${CONFIG.osrmEndpoint}/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson&alternatives=true`;
     
-    console.log('Calculating route...');
-    showNotification('Calculating route...', 'info');
+    console.log('Calculating routes...');
+    showNotification('Calculating routes...', 'info');
     
     try {
         const response = await fetch(url);
@@ -285,24 +288,32 @@ async function calculateRoute() {
             throw new Error('No route found');
         }
         
-        const route = data.routes[0];
-        currentRoute = route;
+        // Store all available routes
+        availableRoutes = data.routes;
+        selectedRouteIndex = 0;
+        currentRoute = availableRoutes[0];
         
-        // Extract route information
-        const distanceMeters = route.distance;
-        const distanceKm = (distanceMeters / 1000).toFixed(2);
-        const durationSeconds = route.duration;
-        const geometry = route.geometry;
+        console.log(`Found ${availableRoutes.length} route(s)`);
+        console.log('Route data:', data.routes.map((r, i) => ({
+            route: i + 1,
+            distance: (r.distance / 1000).toFixed(2) + ' km',
+            duration: Math.round(r.duration / 60) + ' min'
+        })));
         
-        console.log(`Route calculated: ${distanceKm} km, ${Math.round(durationSeconds / 60)} minutes`);
+        // Display all routes on map
+        displayAllRoutes();
         
-        // Update distance field
-        document.getElementById('distance').value = distanceKm;
+        // Update route selector UI
+        updateRouteSelector();
         
-        // Draw route on map
-        drawRoute(geometry);
+        // Update distance field with selected route
+        updateSelectedRoute(0);
         
-        showNotification(`Route calculated: ${distanceKm} km`, 'success');
+        if (availableRoutes.length > 1) {
+            showNotification(`Found ${availableRoutes.length} route options - select one below!`, 'success');
+        } else {
+            showNotification(`Route calculated (only 1 route available for these locations)`, 'success');
+        }
         
     } catch (error) {
         console.error('Route calculation error:', error);
@@ -311,7 +322,144 @@ async function calculateRoute() {
 }
 
 /**
- * Draw route polyline on map
+ * Display all available routes on the map
+ */
+function displayAllRoutes() {
+    // Remove existing route lines
+    routeLines.forEach(line => map.removeLayer(line));
+    routeLines = [];
+    
+    if (routeLine) {
+        map.removeLayer(routeLine);
+        routeLine = null;
+    }
+    
+    // Draw all routes
+    availableRoutes.forEach((route, index) => {
+        const latLngs = route.geometry.coordinates.map(coord => [coord[1], coord[0]]);
+        
+        // Different styling for selected vs alternative routes
+        const isSelected = index === selectedRouteIndex;
+        const polyline = L.polyline(latLngs, {
+            color: isSelected ? '#2563eb' : '#94a3b8',
+            weight: isSelected ? 5 : 3,
+            opacity: isSelected ? 0.8 : 0.4,
+            lineJoin: 'round'
+        }).addTo(map);
+        
+        // Add click handler to select route
+        polyline.on('click', () => selectRoute(index));
+        
+        routeLines.push(polyline);
+    });
+    
+    // Fit map bounds to show the selected route
+    if (routeLines[selectedRouteIndex]) {
+        map.fitBounds(routeLines[selectedRouteIndex].getBounds(), {
+            padding: [50, 50]
+        });
+    }
+}
+
+/**
+ * Select a specific route by index
+ * @param {number} index - Route index to select
+ */
+function selectRoute(index) {
+    if (index < 0 || index >= availableRoutes.length) return;
+    
+    selectedRouteIndex = index;
+    currentRoute = availableRoutes[index];
+    
+    // Update route visualization
+    routeLines.forEach((line, i) => {
+        const isSelected = i === index;
+        line.setStyle({
+            color: isSelected ? '#2563eb' : '#94a3b8',
+            weight: isSelected ? 5 : 3,
+            opacity: isSelected ? 0.8 : 0.4
+        });
+        
+        // Bring selected route to front
+        if (isSelected) {
+            line.bringToFront();
+        }
+    });
+    
+    // Update UI
+    updateSelectedRoute(index);
+    updateRouteSelector();
+}
+
+/**
+ * Update the selected route information
+ * @param {number} index - Route index
+ */
+function updateSelectedRoute(index) {
+    const route = availableRoutes[index];
+    const distanceKm = (route.distance / 1000).toFixed(2);
+    
+    // Update distance field
+    document.getElementById('distance').value = distanceKm;
+    
+    console.log(`Route ${index + 1} selected: ${distanceKm} km, ${Math.round(route.duration / 60)} minutes`);
+}
+
+/**
+ * Update the route selector UI with available routes
+ */
+function updateRouteSelector() {
+    const container = document.getElementById('routeOptionsContainer');
+    if (!container) return;
+    
+    // Clear existing options
+    container.innerHTML = '';
+    
+    // Hide if only one route
+    if (availableRoutes.length <= 1) {
+        container.style.display = 'none';
+        return;
+    }
+    
+    container.style.display = 'block';
+    
+    // Create route option cards
+    availableRoutes.forEach((route, index) => {
+        const distanceKm = (route.distance / 1000).toFixed(2);
+        const durationMin = Math.round(route.duration / 60);
+        const isSelected = index === selectedRouteIndex;
+        
+        const optionCard = document.createElement('div');
+        optionCard.className = `route-option ${isSelected ? 'selected' : ''}`;
+        optionCard.innerHTML = `
+            <div class="route-option-header">
+                <span class="route-option-title">Route ${index + 1}</span>
+                ${isSelected ? '<span class="route-badge">Selected</span>' : ''}
+            </div>
+            <div class="route-option-details">
+                <div class="route-detail">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    <span>${distanceKm} km</span>
+                </div>
+                <div class="route-detail">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <span>${durationMin} min</span>
+                </div>
+            </div>
+        `;
+        
+        optionCard.addEventListener('click', () => selectRoute(index));
+        container.appendChild(optionCard);
+    });
+}
+
+/**
+ * Draw route polyline on map (legacy function for compatibility)
  * @param {object} geometry - GeoJSON geometry object
  */
 function drawRoute(geometry) {
