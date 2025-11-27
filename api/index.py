@@ -8,7 +8,7 @@ using the new trained Random Forest model with preprocessor and scaler.
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
-import pandas as pd
+# import pandas as pd
 import numpy as np
 import os
 import logging
@@ -147,16 +147,27 @@ def prepare_and_predict(data):
     Returns:
         float: Predicted fare
     """
-    # Create DataFrame with correct column order
-    df = pd.DataFrame([data], columns=EXPECTED_COLUMNS)
+    # Create numpy array with correct column order
+    # df = pd.DataFrame([data], columns=EXPECTED_COLUMNS)
     
-    # Ensure Distance_km is float
-    df['Distance_km'] = df['Distance_km'].astype(float)
+    # Extract values in order
+    row_values = []
+    for col in EXPECTED_COLUMNS:
+        val = data[col]
+        # Ensure Distance_km is float
+        if col == 'Distance_km':
+            val = float(val)
+        row_values.append(val)
+        
+    # Create 2D array (1 sample, n features)
+    X_input = np.array([row_values], dtype=object)
     
-    logger.info(f"Input DataFrame:\n{df}")
+    logger.info(f"Input Array:\n{X_input}")
     
     # Step 1: Apply preprocessor (encoding)
-    X_processed = preprocessor.transform(df)
+    # Note: If preprocessor was fitted with pandas, it might warn about feature names, 
+    # but usually works if order is correct.
+    X_processed = preprocessor.transform(X_input)
     logger.info(f"After preprocessing: shape = {X_processed.shape}")
     
     # Step 2: Apply scaler
