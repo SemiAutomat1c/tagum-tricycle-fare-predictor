@@ -192,26 +192,14 @@ def home():
     })
 
 
-@app.route('/api/predict', methods=['POST'])
+@app.route('/api/predict', methods=['POST', 'OPTIONS'])
 def predict():
     """
     Predict tricycle fare based on input parameters
-    
-    Expected JSON input:
-    {
-        "Distance_km": float,
-        "Fuel_Price": string (with ₱ symbol),
-        "Time_of_Day": string,
-        "Weather": string,
-        "Vehicle_Type": string
-    }
-    
-    Returns JSON:
-    {
-        "predicted_fare": float,
-        "input": dict
-    }
     """
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'ok'}), 200
+
     try:
         # Check if pipeline is loaded
         if model is None or preprocessor is None or scaler is None:
@@ -260,6 +248,16 @@ def predict():
             'error': 'Internal server error during prediction',
             'details': str(e)
         }), 500
+
+
+@app.route('/<path:path>', methods=['GET', 'POST', 'OPTIONS'])
+def catch_all(path):
+    logger.info(f"Catch-all: {path}, Method: {request.method}")
+    return jsonify({
+        'error': 'Route not found (caught by catch-all)',
+        'path': path,
+        'method': request.method
+    }), 404
 
 
 @app.route('/api/health', methods=['GET'])
