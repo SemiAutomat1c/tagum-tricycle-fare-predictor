@@ -554,8 +554,18 @@ async function handlePrediction(e) {
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.error || `API error: ${response.status}`);
+            const errorText = await response.text();
+            console.error('API Error Details:', errorText);
+            try {
+                const errorJson = JSON.parse(errorText);
+                if (errorJson.path) {
+                    console.error('Debug - Path received by server:', errorJson.path);
+                }
+                throw new Error(errorJson.error || `API error: ${response.status}`);
+            } catch (e) {
+                // Not JSON or parsing failed
+                throw new Error(`API error: ${response.status} - ${errorText.substring(0, 100)}`);
+            }
         }
 
         const result = await response.json();
