@@ -277,7 +277,18 @@ async function calculateRoute() {
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error(`OSRM API error: ${response.status}`);
+            const errorText = await response.text();
+            console.error('API Error Details:', errorText);
+            try {
+                const errorJson = JSON.parse(errorText);
+                if (errorJson.path) {
+                    console.error('Debug - Path received by server:', errorJson.path);
+                    console.error('Debug - Method received by server:', errorJson.method);
+                }
+            } catch (e) {
+                // Not JSON
+            }
+            throw new Error(`API error: ${response.status} - ${errorText}`);
         }
 
         const data = await response.json();
