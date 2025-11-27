@@ -170,7 +170,7 @@ def prepare_and_predict(data):
     return predicted_fare
 
 
-@app.route('/')
+@app.route('/api/')
 def home():
     """
     Health check endpoint
@@ -186,13 +186,13 @@ def home():
         'version': '2.0.0',
         'model_info': model_info,
         'endpoints': {
-            '/predict': 'POST - Predict tricycle fare',
-            '/health': 'GET - Detailed health check'
+            '/api/predict': 'POST - Predict tricycle fare',
+            '/api/health': 'GET - Detailed health check'
         }
     })
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/api/predict', methods=['POST'])
 def predict():
     """
     Predict tricycle fare based on input parameters
@@ -262,7 +262,7 @@ def predict():
         }), 500
 
 
-@app.route('/health', methods=['GET'])
+@app.route('/api/health', methods=['GET'])
 def health():
     """
     Detailed health check endpoint
@@ -292,7 +292,7 @@ def health():
     }), 200
 
 
-@app.route('/valid-values', methods=['GET'])
+@app.route('/api/valid-values', methods=['GET'])
 def valid_values():
     """
     Get valid values for categorical inputs

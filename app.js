@@ -12,10 +12,8 @@ const CONFIG = {
     defaultZoom: 14,
     // OSRM routing API endpoint
     osrmEndpoint: 'https://router.project-osrm.org/route/v1/driving',
-    // Backend API endpoint - automatically detects local vs deployed
-    backendAPI: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:5000/predict'
-        : 'https://tagum-tricycle-fare-predictor.onrender.com/predict'
+    // Backend API endpoint - relative path for Vercel (proxied via rewrites)
+    backendAPI: '/api/predict'
 };
 
 // Global state
@@ -56,16 +54,16 @@ const DESTINATIONS = [
 function initializeMap() {
     // Create map centered on Tagum City
     map = L.map('map').setView([CONFIG.tagumCity.lat, CONFIG.tagumCity.lng], CONFIG.defaultZoom);
-    
+
     // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19
     }).addTo(map);
-    
+
     // Add map click event listener for destination selection
     map.on('click', handleMapClick);
-    
+
     console.log('Map initialized successfully');
 }
 
@@ -74,7 +72,7 @@ function initializeMap() {
  */
 function handleMapClick(e) {
     const { lat, lng } = e.latlng;
-    
+
     if (isSettingOrigin) {
         // Setting new origin
         setOrigin(lat, lng);
@@ -96,24 +94,24 @@ function handleMapClick(e) {
 function detectUserLocation() {
     if ('geolocation' in navigator) {
         console.log('Requesting geolocation permission...');
-        
+
         navigator.geolocation.getCurrentPosition(
             // Success callback
             (position) => {
                 const { latitude, longitude } = position.coords;
                 console.log(`Location detected: ${latitude}, ${longitude}`);
-                
+
                 setOrigin(latitude, longitude);
                 map.setView([latitude, longitude], CONFIG.defaultZoom);
-                
+
                 showNotification('Location detected successfully!', 'success');
             },
             // Error callback
             (error) => {
                 console.error('Geolocation error:', error);
-                
+
                 let message = 'Location access denied. ';
-                switch(error.code) {
+                switch (error.code) {
                     case error.PERMISSION_DENIED:
                         message += 'Please enable location access or use "Change Origin" button.';
                         break;
@@ -124,9 +122,9 @@ function detectUserLocation() {
                         message += 'Location request timed out.';
                         break;
                 }
-                
+
                 alert(message);
-                
+
                 // Default to Tagum City center
                 setOrigin(CONFIG.tagumCity.lat, CONFIG.tagumCity.lng);
             },
@@ -157,7 +155,7 @@ function setOrigin(lat, lng) {
     if (originMarker) {
         map.removeLayer(originMarker);
     }
-    
+
     // Create custom blue icon for origin
     const blueIcon = L.icon({
         iconUrl: 'data:image/svg+xml;base64,' + btoa(`
@@ -170,29 +168,29 @@ function setOrigin(lat, lng) {
         iconAnchor: [16, 42],
         popupAnchor: [0, -42]
     });
-    
+
     // Add origin marker (draggable)
     originMarker = L.marker([lat, lng], {
         icon: blueIcon,
         draggable: true,
         title: 'Origin (Draggable)'
     }).addTo(map);
-    
+
     originMarker.bindPopup('<b>Origin</b><br>Drag to adjust position').openPopup();
-    
+
     // Add drag event
-    originMarker.on('dragend', function(e) {
+    originMarker.on('dragend', function (e) {
         const { lat, lng } = e.target.getLatLng();
         updateOriginCoordinates(lat, lng);
-        
+
         // Recalculate route if destination exists
         if (destinationMarker) {
             calculateRoute();
         }
     });
-    
+
     updateOriginCoordinates(lat, lng);
-    
+
     // Recalculate route if destination exists
     if (destinationMarker) {
         calculateRoute();
@@ -210,7 +208,7 @@ function setDestination(lat, lng, name = null) {
     if (destinationMarker) {
         map.removeLayer(destinationMarker);
     }
-    
+
     // Create custom red icon for destination
     const redIcon = L.icon({
         iconUrl: 'data:image/svg+xml;base64,' + btoa(`
@@ -223,18 +221,18 @@ function setDestination(lat, lng, name = null) {
         iconAnchor: [16, 42],
         popupAnchor: [0, -42]
     });
-    
+
     // Add destination marker
     destinationMarker = L.marker([lat, lng], {
         icon: redIcon,
         title: name || 'Destination'
     }).addTo(map);
-    
+
     const popupText = name ? `<b>${name}</b>` : '<b>Destination</b>';
     destinationMarker.bindPopup(popupText).openPopup();
-    
+
     updateDestinationCoordinates(lat, lng);
-    
+
     // Calculate route
     calculateRoute();
 }
@@ -265,56 +263,56 @@ async function calculateRoute() {
         console.log('Both origin and destination required for routing');
         return;
     }
-    
+
     const origin = originMarker.getLatLng();
     const destination = destinationMarker.getLatLng();
-    
+
     // OSRM expects lon,lat format - request alternative routes
     const url = `${CONFIG.osrmEndpoint}/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson&alternatives=true`;
-    
+
     console.log('Calculating routes...');
     showNotification('Calculating routes...', 'info');
-    
+
     try {
         const response = await fetch(url);
-        
+
         if (!response.ok) {
             throw new Error(`OSRM API error: ${response.status}`);
         }
-        
+
         const data = await response.json();
-        
+
         if (data.code !== 'Ok' || !data.routes || data.routes.length === 0) {
             throw new Error('No route found');
         }
-        
+
         // Store all available routes
         availableRoutes = data.routes;
         selectedRouteIndex = 0;
         currentRoute = availableRoutes[0];
-        
+
         console.log(`Found ${availableRoutes.length} route(s)`);
         console.log('Route data:', data.routes.map((r, i) => ({
             route: i + 1,
             distance: (r.distance / 1000).toFixed(2) + ' km',
             duration: Math.round(r.duration / 60) + ' min'
         })));
-        
+
         // Display all routes on map
         displayAllRoutes();
-        
+
         // Update route selector UI
         updateRouteSelector();
-        
+
         // Update distance field with selected route
         updateSelectedRoute(0);
-        
+
         if (availableRoutes.length > 1) {
             showNotification(`Found ${availableRoutes.length} route options - select one below!`, 'success');
         } else {
             showNotification(`Route calculated (only 1 route available for these locations)`, 'success');
         }
-        
+
     } catch (error) {
         console.error('Route calculation error:', error);
         showError('Failed to calculate route. Please check your internet connection or try different locations.');
@@ -328,16 +326,16 @@ function displayAllRoutes() {
     // Remove existing route lines
     routeLines.forEach(line => map.removeLayer(line));
     routeLines = [];
-    
+
     if (routeLine) {
         map.removeLayer(routeLine);
         routeLine = null;
     }
-    
+
     // Draw all routes
     availableRoutes.forEach((route, index) => {
         const latLngs = route.geometry.coordinates.map(coord => [coord[1], coord[0]]);
-        
+
         // Different styling for selected vs alternative routes
         const isSelected = index === selectedRouteIndex;
         const polyline = L.polyline(latLngs, {
@@ -346,13 +344,13 @@ function displayAllRoutes() {
             opacity: isSelected ? 0.8 : 0.4,
             lineJoin: 'round'
         }).addTo(map);
-        
+
         // Add click handler to select route
         polyline.on('click', () => selectRoute(index));
-        
+
         routeLines.push(polyline);
     });
-    
+
     // Fit map bounds to show the selected route
     if (routeLines[selectedRouteIndex]) {
         map.fitBounds(routeLines[selectedRouteIndex].getBounds(), {
@@ -367,10 +365,10 @@ function displayAllRoutes() {
  */
 function selectRoute(index) {
     if (index < 0 || index >= availableRoutes.length) return;
-    
+
     selectedRouteIndex = index;
     currentRoute = availableRoutes[index];
-    
+
     // Update route visualization
     routeLines.forEach((line, i) => {
         const isSelected = i === index;
@@ -379,13 +377,13 @@ function selectRoute(index) {
             weight: isSelected ? 5 : 3,
             opacity: isSelected ? 0.8 : 0.4
         });
-        
+
         // Bring selected route to front
         if (isSelected) {
             line.bringToFront();
         }
     });
-    
+
     // Update UI
     updateSelectedRoute(index);
     updateRouteSelector();
@@ -398,10 +396,10 @@ function selectRoute(index) {
 function updateSelectedRoute(index) {
     const route = availableRoutes[index];
     const distanceKm = (route.distance / 1000).toFixed(2);
-    
+
     // Update distance field
     document.getElementById('distance').value = distanceKm;
-    
+
     console.log(`Route ${index + 1} selected: ${distanceKm} km, ${Math.round(route.duration / 60)} minutes`);
 }
 
@@ -411,24 +409,24 @@ function updateSelectedRoute(index) {
 function updateRouteSelector() {
     const container = document.getElementById('routeOptionsContainer');
     if (!container) return;
-    
+
     // Clear existing options
     container.innerHTML = '';
-    
+
     // Hide if only one route
     if (availableRoutes.length <= 1) {
         container.style.display = 'none';
         return;
     }
-    
+
     container.style.display = 'block';
-    
+
     // Create route option cards
     availableRoutes.forEach((route, index) => {
         const distanceKm = (route.distance / 1000).toFixed(2);
         const durationMin = Math.round(route.duration / 60);
         const isSelected = index === selectedRouteIndex;
-        
+
         const optionCard = document.createElement('div');
         optionCard.className = `route-option ${isSelected ? 'selected' : ''}`;
         optionCard.innerHTML = `
@@ -452,7 +450,7 @@ function updateRouteSelector() {
                 </div>
             </div>
         `;
-        
+
         optionCard.addEventListener('click', () => selectRoute(index));
         container.appendChild(optionCard);
     });
@@ -467,10 +465,10 @@ function drawRoute(geometry) {
     if (routeLine) {
         map.removeLayer(routeLine);
     }
-    
+
     // Convert GeoJSON coordinates to Leaflet LatLng format
     const latLngs = geometry.coordinates.map(coord => [coord[1], coord[0]]);
-    
+
     // Create polyline
     routeLine = L.polyline(latLngs, {
         color: '#2563eb',
@@ -478,7 +476,7 @@ function drawRoute(geometry) {
         opacity: 0.7,
         lineJoin: 'round'
     }).addTo(map);
-    
+
     // Fit map bounds to show entire route
     map.fitBounds(routeLine.getBounds(), {
         padding: [50, 50]
@@ -494,18 +492,18 @@ function drawRoute(geometry) {
  */
 async function handlePrediction(e) {
     e.preventDefault();
-    
+
     // Hide previous results/errors
     document.getElementById('predictionResult').style.display = 'none';
     document.getElementById('errorMessage').style.display = 'none';
-    
+
     // Validate distance is set
     const distance = document.getElementById('distance').value;
     if (!distance) {
         showError('Please set origin and destination to calculate distance first.');
         return;
     }
-    
+
     // Collect form data
     const formData = {
         Distance_km: parseFloat(distance),
@@ -514,7 +512,7 @@ async function handlePrediction(e) {
         Weather: document.getElementById('weather').value,
         Vehicle_Type: document.getElementById('vehicleType').value
     };
-    
+
     // Validate all fields are filled
     for (const [key, value] of Object.entries(formData)) {
         if (value === '' || value === null || value === undefined) {
@@ -522,18 +520,18 @@ async function handlePrediction(e) {
             return;
         }
     }
-    
+
     console.log('Prediction data:', formData);
-    
+
     // Show loading state
     const predictBtn = document.getElementById('predictBtn');
     const btnText = predictBtn.querySelector('.btn-text');
     const spinner = predictBtn.querySelector('.spinner');
-    
+
     predictBtn.disabled = true;
     btnText.style.display = 'none';
     spinner.style.display = 'inline-block';
-    
+
     try {
         // Call backend API
         const response = await fetch(CONFIG.backendAPI, {
@@ -543,24 +541,24 @@ async function handlePrediction(e) {
             },
             body: JSON.stringify(formData)
         });
-        
+
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(errorData.error || `API error: ${response.status}`);
         }
-        
+
         const result = await response.json();
-        
+
         if (!result.predicted_fare) {
             throw new Error('Invalid response from server');
         }
-        
+
         // Display prediction result
         displayPrediction(result.predicted_fare);
-        
+
     } catch (error) {
         console.error('Prediction error:', error);
-        
+
         // Check if it's a network error
         if (error.message.includes('fetch')) {
             showError('Cannot connect to prediction server. Please ensure the backend is running. See README for setup instructions.');
@@ -582,14 +580,14 @@ async function handlePrediction(e) {
 function displayPrediction(fare) {
     const resultDiv = document.getElementById('predictionResult');
     const fareAmount = document.getElementById('fareAmount');
-    
+
     // Display as whole number (no decimals for tricycle fares)
     fareAmount.textContent = `₱${Math.round(fare)}`;
     resultDiv.style.display = 'block';
-    
+
     // Scroll to result
     resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    
+
     console.log(`Prediction displayed: ₱${Math.round(fare)}`);
 }
 
@@ -601,7 +599,7 @@ function showError(message) {
     const errorDiv = document.getElementById('errorMessage');
     errorDiv.textContent = message;
     errorDiv.style.display = 'block';
-    
+
     // Scroll to error
     errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -628,27 +626,27 @@ function showNotification(message, type = 'info') {
 async function filterDestinations(searchText) {
     const suggestionsContainer = document.getElementById('searchSuggestions');
     const searchInput = document.getElementById('destinationSearch');
-    
+
     if (!searchText || searchText.trim().length < 2) {
         suggestionsContainer.style.display = 'none';
         searchInput.style.borderRadius = '8px';
         return;
     }
-    
+
     const query = searchText.toLowerCase().trim();
-    
+
     // Filter destinations that match the search query
-    const matches = DESTINATIONS.filter(dest => 
-        dest.name.toLowerCase().includes(query) || 
+    const matches = DESTINATIONS.filter(dest =>
+        dest.name.toLowerCase().includes(query) ||
         dest.category.toLowerCase().includes(query)
     );
-    
+
     if (matches.length === 0) {
         // If no predefined matches, search using Nominatim
         await searchNominatim(query);
         return;
     }
-    
+
     // Display suggestions
     suggestionsContainer.innerHTML = matches.map(dest => `
         <div class="suggestion-item" data-lat="${dest.lat}" data-lng="${dest.lng}" data-name="${dest.name}">
@@ -659,18 +657,18 @@ async function filterDestinations(searchText) {
             </div>
         </div>
     `).join('');
-    
+
     suggestionsContainer.style.display = 'block';
     searchInput.style.borderRadius = '8px 8px 0 0';
-    
+
     // Add click listeners to suggestions
     const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
     suggestionItems.forEach(item => {
-        item.addEventListener('click', function() {
+        item.addEventListener('click', function () {
             const lat = parseFloat(this.getAttribute('data-lat'));
             const lng = parseFloat(this.getAttribute('data-lng'));
             const name = this.getAttribute('data-name');
-            
+
             selectDestination(lat, lng, name);
         });
     });
@@ -683,20 +681,20 @@ async function filterDestinations(searchText) {
 async function searchNominatim(query) {
     const suggestionsContainer = document.getElementById('searchSuggestions');
     const searchInput = document.getElementById('destinationSearch');
-    
+
     suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">Searching...</div>';
     suggestionsContainer.style.display = 'block';
     searchInput.style.borderRadius = '8px 8px 0 0';
-    
+
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ', Tagum City, Philippines')}&format=json&limit=5`);
         const results = await response.json();
-        
+
         if (results.length === 0) {
             suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">No destinations found</div>';
             return;
         }
-        
+
         suggestionsContainer.innerHTML = results.map(result => `
             <div class="suggestion-item" data-lat="${result.lat}" data-lng="${result.lon}" data-name="${result.display_name.split(',')[0]}">
                 <span class="suggestion-icon">🔍</span>
@@ -706,14 +704,14 @@ async function searchNominatim(query) {
                 </div>
             </div>
         `).join('');
-        
+
         const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
         suggestionItems.forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 const lat = parseFloat(this.getAttribute('data-lat'));
                 const lng = parseFloat(this.getAttribute('data-lng'));
                 const name = this.getAttribute('data-name');
-                
+
                 selectDestination(lat, lng, name);
             });
         });
@@ -731,19 +729,19 @@ async function searchNominatim(query) {
 async function geocodeAndSetDestination(searchQuery, displayName) {
     const searchInput = document.getElementById('destinationSearch');
     const suggestionsContainer = document.getElementById('searchSuggestions');
-    
+
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=1`);
         const results = await response.json();
-        
+
         if (results.length > 0) {
             const lat = parseFloat(results[0].lat);
             const lng = parseFloat(results[0].lon);
-            
+
             searchInput.value = displayName;
             searchInput.style.borderRadius = '8px';
             suggestionsContainer.style.display = 'none';
-            
+
             setDestination(lat, lng, displayName);
             map.setView([lat, lng], 15);
         } else {
@@ -764,17 +762,17 @@ async function geocodeAndSetDestination(searchQuery, displayName) {
 function selectDestination(lat, lng, name) {
     const searchInput = document.getElementById('destinationSearch');
     const suggestionsContainer = document.getElementById('searchSuggestions');
-    
+
     // Update search input
     searchInput.value = name;
     searchInput.style.borderRadius = '8px';
-    
+
     // Hide suggestions
     suggestionsContainer.style.display = 'none';
-    
+
     // Set destination on map
     setDestination(lat, lng, name);
-    
+
     // Pan map to show destination
     map.setView([lat, lng], 15);
 }
@@ -786,12 +784,12 @@ function selectDestination(lat, lng, name) {
 function handleSearchKeyboard(e) {
     const suggestionsContainer = document.getElementById('searchSuggestions');
     const items = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
-    
+
     if (items.length === 0) return;
-    
+
     const activeItem = suggestionsContainer.querySelector('.suggestion-item.active');
     let currentIndex = Array.from(items).indexOf(activeItem);
-    
+
     if (e.key === 'ArrowDown') {
         e.preventDefault();
         if (activeItem) activeItem.classList.remove('active');
@@ -843,37 +841,37 @@ function handleReset() {
         map.removeLayer(destinationMarker);
         destinationMarker = null;
     }
-    
+
     // Remove route line
     if (routeLine) {
         map.removeLayer(routeLine);
         routeLine = null;
     }
-    
+
     currentRoute = null;
-    
+
     // Clear destination coordinates
     document.getElementById('destCoords').textContent = 'Not set';
-    
+
     // Clear distance field
     document.getElementById('distance').value = '';
-    
+
     // Clear search input
     document.getElementById('destinationSearch').value = '';
     document.getElementById('searchSuggestions').style.display = 'none';
-    
+
     // Hide prediction result
     document.getElementById('predictionResult').style.display = 'none';
     document.getElementById('errorMessage').style.display = 'none';
-    
+
     // Reset form
     document.getElementById('fareForm').reset();
-    
+
     // Center map on origin if exists
     if (originMarker) {
         map.setView(originMarker.getLatLng(), CONFIG.defaultZoom);
     }
-    
+
     console.log('Route reset');
     showNotification('Route cleared', 'info');
 }
@@ -888,24 +886,24 @@ function handleReset() {
 function setupEventListeners() {
     // Form submission
     document.getElementById('fareForm').addEventListener('submit', handlePrediction);
-    
+
     // Change origin button
     document.getElementById('changeOriginBtn').addEventListener('click', handleChangeOrigin);
-    
+
     // Reset button
     document.getElementById('resetBtn').addEventListener('click', handleReset);
-    
+
     // Destination search input
     const searchInput = document.getElementById('destinationSearch');
-    searchInput.addEventListener('input', function(e) {
+    searchInput.addEventListener('input', function (e) {
         filterDestinations(e.target.value);
     });
-    
+
     // Keyboard navigation for search
     searchInput.addEventListener('keydown', handleSearchKeyboard);
-    
+
     // Hide suggestions when clicking outside
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         const searchContainer = document.querySelector('.search-container');
         const searchInput = document.getElementById('destinationSearch');
         if (searchContainer && !searchContainer.contains(e.target)) {
@@ -913,7 +911,7 @@ function setupEventListeners() {
             searchInput.style.borderRadius = '8px';
         }
     });
-    
+
     console.log('Event listeners initialized');
 }
 
@@ -926,16 +924,16 @@ function setupEventListeners() {
  */
 function initializeApp() {
     console.log('Initializing Tricycle Fare Optimizer...');
-    
+
     // Initialize map
     initializeMap();
-    
+
     // Set up event listeners
     setupEventListeners();
-    
+
     // Detect user location
     detectUserLocation();
-    
+
     console.log('Application initialized successfully');
 }
 
