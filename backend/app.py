@@ -192,6 +192,25 @@ def home():
     })
 
 
+@app.before_request
+def log_request_info():
+    logger.info(f"Request Path: {request.path}")
+    logger.info(f"Request Method: {request.method}")
+    logger.info(f"Request URL: {request.url}")
+
+@app.route('/', methods=['GET', 'POST', 'OPTIONS'])
+def root():
+    return jsonify({
+        'message': 'Root endpoint hit',
+        'path': request.path,
+        'method': request.method
+    })
+
+@app.route('/predict', methods=['POST', 'OPTIONS'])
+def predict_no_prefix():
+    logger.info("Hit /predict (no api prefix)")
+    return predict()
+
 @app.route('/api/predict', methods=['POST', 'OPTIONS'])
 def predict():
     """
@@ -258,6 +277,8 @@ def catch_all(path):
         'path': path,
         'method': request.method
     }), 404
+
+# ... rest of file ...
 
 
 @app.route('/api/health', methods=['GET'])
