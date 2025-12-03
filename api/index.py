@@ -8,7 +8,7 @@ using the new trained Random Forest model with preprocessor and scaler.
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
-# import pandas as pd
+import pandas as pd
 import numpy as np
 import os
 import logging
@@ -147,20 +147,11 @@ def prepare_and_predict(data):
     Returns:
         float: Predicted fare
     """
-    # Create numpy array with correct column order
-    # df = pd.DataFrame([data], columns=EXPECTED_COLUMNS)
+    # Create DataFrame with correct column order
+    X_input = pd.DataFrame([data], columns=EXPECTED_COLUMNS)
     
-    # Extract values in order
-    row_values = []
-    for col in EXPECTED_COLUMNS:
-        val = data[col]
-        # Ensure Distance_km is float
-        if col == 'Distance_km':
-            val = float(val)
-        row_values.append(val)
-        
-    # Create 2D array (1 sample, n features)
-    X_input = np.array([row_values], dtype=object)
+    # Ensure Distance_km is float
+    X_input['Distance_km'] = X_input['Distance_km'].astype(float)
     
     logger.info(f"Input Array:\n{X_input}")
     
@@ -232,11 +223,13 @@ def predict():
 
     try:
         # Check if pipeline is loaded
-        if model is None or preprocessor is None or scaler is None:
-            logger.error("Pipeline components not loaded")
-            return jsonify({
-                'error': 'Model pipeline not available. Please contact administrator.'
-            }), 500
+        if model is None:
+            logger.info("Pipeline not loaded, attempting to load now...")
+            if not load_pipeline():
+                logger.error("Failed to load pipeline components")
+                return jsonify({
+                    'error': 'Model pipeline not available. Please contact administrator.'
+                }), 500
         
         # Get JSON data from request
         if not request.is_json:
@@ -355,21 +348,7 @@ def internal_error(error):
     }), 500
 
 
-# Load pipeline on module import
-logger.info("="*60)
-logger.info("Tagum Tricycle Fare Optimizer API - Module Loading")
-logger.info("="*60)
-logger.info(f"Current directory: {os.getcwd()}")
-logger.info("Attempting to load pipeline components...")
-
-if load_pipeline():
-    logger.info("="*60)
-    logger.info("SUCCESS: All pipeline components loaded!")
-    logger.info("="*60)
-else:
-    logger.error("="*60)
-    logger.error("CRITICAL: Pipeline failed to load!")
-    logger.error("="*60)
+# Pipeline will be loaded lazily on first request
 
 # Application entry point
 if __name__ == '__main__':
