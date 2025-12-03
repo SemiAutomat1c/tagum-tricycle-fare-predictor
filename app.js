@@ -12,7 +12,7 @@ const CONFIG = {
     defaultZoom: 14,
     // OSRM routing API endpoint
     osrmEndpoint: 'https://router.project-osrm.org/route/v1/driving',
-    // Backend API endpoint - relative path for Vercel (proxied via rewrites)
+    // Backend API endpoint - relative path for Firebase (proxied via rewrites)
     backendAPI: '/api/predict'
 };
 

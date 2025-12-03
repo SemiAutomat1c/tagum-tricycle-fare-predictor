@@ -177,56 +177,20 @@ print(f"Model R² Score: {score:.4f}")
 
 ## Deployment Options
 
-### Option 1: Render.com (Recommended)
+### Firebase Cloud Functions (Recommended)
 
-1. Create a `render.yaml` file:
-```yaml
-services:
-  - type: web
-    name: tricycle-fare-api
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
-```
+1. **Install Firebase CLI**:
+   ```bash
+   npm install -g firebase-tools
+   ```
 
-2. Push to GitHub
-3. Connect repository to Render.com
-4. Deploy automatically
+2. **Login and Deploy**:
+   ```bash
+   firebase login
+   firebase deploy
+   ```
 
-### Option 2: Railway.app
-
-1. Install Railway CLI:
-```bash
-npm install -g @railway/cli
-```
-
-2. Login and deploy:
-```bash
-railway login
-railway init
-railway up
-```
-
-3. Add `model.pkl` through Railway dashboard
-
-### Option 3: PythonAnywhere
-
-1. Upload files through web interface
-2. Create virtual environment
-3. Configure WSGI file:
-```python
-import sys
-path = '/home/yourusername/backend'
-if path not in sys.path:
-    sys.path.append(path)
-
-from app import app as application
-```
-
-4. Reload web app
+   *Note: Requires Blaze plan for Python Cloud Functions.*
 
 ## CORS Configuration
 
@@ -238,7 +202,7 @@ CORS(app)
 
 # With this:
 CORS(app, origins=[
-    'https://your-vercel-app.vercel.app',
+    'https://tagum-fare-predictor-v2.web.app',
     'https://your-custom-domain.com'
 ])
 ```

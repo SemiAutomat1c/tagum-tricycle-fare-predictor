@@ -60,11 +60,11 @@ The Tagum Tricycle Fare Predictor is a modern web application designed to help r
 - **OSRM API**: Professional-grade routing engine
 
 ### Backend
-- **Flask 3.0.0**: Lightweight, production-ready Python framework
+- **Firebase Cloud Functions (2nd Gen)**: Serverless Python backend
+- **Flask 3.0.0**: Lightweight framework adapted for serverless
 - **scikit-learn 1.5.2**: Robust machine learning library
 - **Random Forest Regressor**: Optimized for fare prediction
-- **pandas 2.1.4**: Efficient data handling
-- **Flask-CORS**: Secure cross-origin requests
+- **pandas 2.2.3**: Efficient data handling
 
 ## 📖 How to Use
 
@@ -120,8 +120,7 @@ The Tagum Tricycle Fare Predictor is a modern web application designed to help r
 
 ## 🌐 Live Demo
 
-**Frontend**: [Deployed on Vercel](https://tagum-tricycle-fare-predictor.vercel.app)  
-**Backend API**: [Deployed on Render](https://tagum-tricycle-fare-predictor.onrender.com)
+**Live App**: [Deployed on Firebase](https://tagum-fare-predictor-v2.web.app)
 
 ## 📊 Fare Prediction Accuracy
 

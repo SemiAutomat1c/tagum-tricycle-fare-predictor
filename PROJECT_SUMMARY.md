@@ -44,10 +44,9 @@
 - [x] `sample_data_generator.py` - Synthetic data generator
 
 ### ✅ Deployment Configurations
-- [x] `vercel.json` - Vercel frontend deployment
-- [x] `backend/render.yaml` - Render.com backend deployment
-- [x] `backend/railway.json` - Railway.app deployment
-- [x] `backend/Procfile` - General deployment config
+- [x] `firebase.json` - Firebase Hosting & Functions config
+- [x] `.firebaserc` - Firebase project alias
+- [x] `DEPLOY.md` - Deployment instructions
 - [x] `.gitignore` files for both frontend and backend
 
 ### ✅ Documentation
@@ -159,16 +158,9 @@ cd backend && python app.py
 
 ## 🌐 Deployment Ready
 
-### Frontend (Vercel)
-- Static site deployment
-- Automatic builds from Git
-- Custom domain support
-- CDN distribution
-
-### Backend Options
-1. **Render.com** - Automatic from render.yaml
-2. **Railway.app** - One-command deployment
-3. **PythonAnywhere** - Free tier available
+### Deployment
+- **Firebase Hosting**: Static frontend assets
+- **Firebase Cloud Functions**: Serverless Python backend
 
 All configurations included in the project.
 
@@ -201,7 +193,9 @@ tricycle-fare-optimizer/
 ├── index.html                 # Main frontend page
 ├── style.css                  # Responsive styles
 ├── app.js                     # Frontend logic
-├── vercel.json                # Vercel deployment config
+├── firebase.json              # Firebase config
+├── .firebaserc                # Firebase project alias
+├── DEPLOY.md                  # Deployment instructions
 ├── .gitignore                 # Git ignore rules
 ├── README.md                  # Main documentation
 ├── QUICKSTART.md              # Quick start guide
@@ -213,14 +207,12 @@ tricycle-fare-optimizer/
 ├── sample_data_generator.py   # Sample data generator
 ├── test_api.py                # API testing script
 │
-└── backend/
-    ├── app.py                 # Flask API
-    ├── model.pkl              # Trained model (to be added)
+└── api/
+    ├── index.py               # Flask API (Cloud Function)
+    ├── main.py                # Cloud Function adapter
+    ├── model.pkl              # Trained model
     ├── requirements.txt       # Python dependencies
     ├── README.md              # Backend documentation
-    ├── render.yaml            # Render deployment
-    ├── railway.json           # Railway deployment
-    ├── Procfile               # Process file
     └── .gitignore             # Backend ignore rules
 ```
 

@@ -185,16 +185,15 @@ Feature Importance (typical):
 
 ## 🚀 Deployment
 
-### Backend Deployment (Render/Railway)
+### Deployment (Firebase)
 
-1. Make sure `backend/app.py` uses the new version
+1. Make sure `api/index.py` uses the new version
 2. Commit all `.pkl` files to Git
-3. Deploy to Render/Railway
-4. The model files will be included in the deployment
-
-### Frontend Deployment (Vercel)
-
-The frontend already has the updated fuel price format, so no changes needed!
+3. Deploy to Firebase:
+   ```bash
+   firebase deploy
+   ```
+4. The model files will be included in the Cloud Function deployment
 
 ## ✅ Checklist
 
