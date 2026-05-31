@@ -6,3 +6,4 @@ joblib==1.4.2
 numpy==2.0.2
 firebase-functions
 firebase-admin
+gunicorn==23.0.0

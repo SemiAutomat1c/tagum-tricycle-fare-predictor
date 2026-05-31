@@ -12,8 +12,19 @@ const CONFIG = {
     defaultZoom: 14,
     // OSRM routing API endpoint
     osrmEndpoint: 'https://router.project-osrm.org/route/v1/driving',
-    // Backend API endpoint - relative path for Firebase (proxied via rewrites)
-    backendAPI: '/api/predict'
+    // Backend API endpoint - relative path for Firebase (proxied via rewrites) or localhost for development.
+    // To host the backend on Hugging Face Spaces, set useHuggingFace to true and provide huggingFaceEndpoint.
+    useHuggingFace: true,
+    huggingFaceEndpoint: 'https://semiautomat1c-tagum-tricycle-fare-backend.hf.space/api/predict',
+
+    get backendAPI() {
+        if (this.useHuggingFace && this.huggingFaceEndpoint && !this.huggingFaceEndpoint.includes('<your-username>')) {
+            return this.huggingFaceEndpoint;
+        }
+        return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://127.0.0.1:5001/api/predict'
+            : '/api/predict';
+    }
 };
 
 // Global state
