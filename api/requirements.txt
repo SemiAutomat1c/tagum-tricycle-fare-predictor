@@ -4,6 +4,4 @@ scikit-learn==1.5.2
 pandas==2.2.3
 joblib==1.4.2
 numpy==2.0.2
-firebase-functions
-firebase-admin
 gunicorn==23.0.0
