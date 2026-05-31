@@ -66,10 +66,11 @@ function initializeMap() {
     // Create map centered on Tagum City
     map = L.map('map').setView([CONFIG.tagumCity.lat, CONFIG.tagumCity.lng], CONFIG.defaultZoom);
 
-    // Add OpenStreetMap tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19
+    // Add CartoDB Dark Matter tile layer
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
     }).addTo(map);
 
     // Add map click event listener for destination selection
@@ -167,11 +168,11 @@ function setOrigin(lat, lng) {
         map.removeLayer(originMarker);
     }
 
-    // Create custom blue icon for origin
+    // Create custom cyan icon for origin
     const blueIcon = L.icon({
         iconUrl: 'data:image/svg+xml;base64,' + btoa(`
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="42" viewBox="0 0 32 42">
-                <path fill="#2563eb" stroke="#ffffff" stroke-width="2" d="M16 0C9.373 0 4 5.373 4 12c0 8.25 12 30 12 30s12-21.75 12-30c0-6.627-5.373-12-12-12z"/>
+                <path fill="#0ea5e9" stroke="#ffffff" stroke-width="2" d="M16 0C9.373 0 4 5.373 4 12c0 8.25 12 30 12 30s12-21.75 12-30c0-6.627-5.373-12-12-12z"/>
                 <circle cx="16" cy="12" r="5" fill="#ffffff"/>
             </svg>
         `),
@@ -220,11 +221,11 @@ function setDestination(lat, lng, name = null) {
         map.removeLayer(destinationMarker);
     }
 
-    // Create custom red icon for destination
+    // Create custom orange/amber icon for destination
     const redIcon = L.icon({
         iconUrl: 'data:image/svg+xml;base64,' + btoa(`
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="42" viewBox="0 0 32 42">
-                <path fill="#dc2626" stroke="#ffffff" stroke-width="2" d="M16 0C9.373 0 4 5.373 4 12c0 8.25 12 30 12 30s12-21.75 12-30c0-6.627-5.373-12-12-12z"/>
+                <path fill="#f59e0b" stroke="#ffffff" stroke-width="2" d="M16 0C9.373 0 4 5.373 4 12c0 8.25 12 30 12 30s12-21.75 12-30c0-6.627-5.373-12-12-12z"/>
                 <circle cx="16" cy="12" r="5" fill="#ffffff"/>
             </svg>
         `),
@@ -361,9 +362,9 @@ function displayAllRoutes() {
         // Different styling for selected vs alternative routes
         const isSelected = index === selectedRouteIndex;
         const polyline = L.polyline(latLngs, {
-            color: isSelected ? '#2563eb' : '#94a3b8',
-            weight: isSelected ? 5 : 3,
-            opacity: isSelected ? 0.8 : 0.4,
+            color: isSelected ? '#f59e0b' : '#475569',
+            weight: isSelected ? 6 : 4,
+            opacity: isSelected ? 0.95 : 0.45,
             lineJoin: 'round'
         }).addTo(map);
 
@@ -395,9 +396,9 @@ function selectRoute(index) {
     routeLines.forEach((line, i) => {
         const isSelected = i === index;
         line.setStyle({
-            color: isSelected ? '#2563eb' : '#94a3b8',
-            weight: isSelected ? 5 : 3,
-            opacity: isSelected ? 0.8 : 0.4
+            color: isSelected ? '#f59e0b' : '#475569',
+            weight: isSelected ? 6 : 4,
+            opacity: isSelected ? 0.95 : 0.45
         });
 
         // Bring selected route to front
