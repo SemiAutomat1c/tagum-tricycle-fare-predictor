@@ -3,191 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tricycle Fare Optimizer - Tagum City</title>
-    
-    <!-- Google Fonts Outfit -->
+    <title>Tagum Tricycle Fare Predictor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo-container">
-                    <img src="Ph_seal_Tagum.png" alt="City of Tagum Logo" id="cityLogo">
-                </div>
-                <div class="header-text">
-                    <div class="city-name">City of Tagum</div>
-                    <h1>🛺 Tricycle Fare Optimizer</h1>
-                    <p class="subtitle">Smart fare prediction powered by AI</p>
+    <a class="skip-link" href="#fareForm">Skip to fare estimator</a>
+
+    <div class="app-shell">
+        <header class="site-header">
+            <div class="brand">
+                <img src="Ph_seal_Tagum.png" alt="City of Tagum seal" class="brand-seal" id="cityLogo">
+                <div>
+                    <p class="brand-city">City of Tagum</p>
+                    <h1>Tricycle Fare Predictor</h1>
                 </div>
             </div>
+            <p class="header-note">Plan a route. Check a fair estimate.</p>
         </header>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Map Section -->
-            <section class="map-section">
-                <div class="map-controls">
-                    <button id="changeOriginBtn" class="btn btn-secondary">
-                        📍 Change Origin Point
-                    </button>
-                    <button id="resetBtn" class="btn btn-danger">
-                        🔄 Reset Route
-                    </button>
+        <main class="workspace">
+            <section class="map-workspace" aria-label="Trip map">
+                <div class="map-toolbar">
+                    <div class="search-container">
+                        <label class="sr-only" for="destinationSearch">Search destination</label>
+                        <span class="search-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>
+                        </span>
+                        <input
+                            type="search"
+                            id="destinationSearch"
+                            class="search-input"
+                            placeholder="Search a destination in Tagum"
+                            autocomplete="off"
+                            role="combobox"
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-controls="searchSuggestions"
+                        >
+                        <div id="searchSuggestions" class="search-suggestions" role="listbox" aria-label="Destination suggestions" hidden></div>
+                    </div>
+
+                    <div class="map-actions" aria-label="Map actions">
+                        <button id="changeOriginBtn" class="btn btn-secondary" type="button" aria-label="Set origin">
+                            <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z"></path><circle cx="12" cy="10" r="2"></circle></svg>
+                            <span>Set origin</span>
+                        </button>
+                        <button id="resetBtn" class="btn btn-quiet" type="button" aria-label="Reset route">
+                            <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6"></path><path d="M20 20v-6h-6"></path><path d="M5.8 15a7 7 0 0 0 11.7 2.6L20 15"></path><path d="M18.2 9A7 7 0 0 0 6.5 6.4L4 9"></path></svg>
+                            <span>Reset</span>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Destination Search -->
-                <div class="destination-search">
-                    <div class="search-container">
-                        <input 
-                            type="text" 
-                            id="destinationSearch" 
-                            class="search-input" 
-                            placeholder="🔍 Search destination or click map..."
-                            autocomplete="off"
-                        >
-                        <div id="searchSuggestions" class="search-suggestions" style="display: none;"></div>
+                <div id="map" aria-label="Interactive map showing the selected trip route"></div>
+
+                <div class="route-metadata" aria-label="Selected route coordinates">
+                    <div class="metadata-item">
+                        <span class="metadata-dot origin-dot" aria-hidden="true"></span>
+                        <span class="coord-label">Origin</span>
+                        <span id="originCoords" class="coord-value">Locating...</span>
                     </div>
-                </div>
-                
-                <div id="map"></div>
-                
-                <div class="coordinates-display">
-                    <div class="coord-item">
-                        <span class="coord-label">Origin:</span>
-                        <span id="originCoords" class="coord-value">Not set</span>
-                    </div>
-                    <div class="coord-item">
-                        <span class="coord-label">Destination:</span>
+                    <div class="metadata-item">
+                        <span class="metadata-dot destination-dot" aria-hidden="true"></span>
+                        <span class="coord-label">Destination</span>
                         <span id="destCoords" class="coord-value">Not set</span>
                     </div>
                 </div>
             </section>
 
-            <!-- Parameters Panel -->
-            <section class="parameters-section">
-                <h2>Fare Prediction Parameters</h2>
-                
-                <!-- Route Options Container -->
-                <div id="routeOptionsContainer" class="route-options-container" style="display: none;">
-                    <h3 class="route-options-title">Available Routes</h3>
-                    <!-- Route options will be dynamically inserted here -->
-                </div>
-                
-                <form id="fareForm">
-                    <!-- Distance Display - Full Width -->
-                    <div class="form-group full-width">
-                        <label for="distance">Distance (km)</label>
-                        <input 
-                            type="text" 
-                            id="distance" 
-                            class="form-control" 
-                            readonly 
-                            placeholder="Calculate route first"
-                        >
+            <aside class="estimator-sheet" id="estimatorSheet" aria-label="Fare estimator">
+                <button class="sheet-toggle" id="sheetToggle" type="button" aria-expanded="false" aria-controls="sheetBody">
+                    <span class="sheet-handle" aria-hidden="true"></span>
+                    <span class="sheet-toggle-label">Fare estimator</span>
+                    <svg class="sheet-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+
+                <div class="sheet-body" id="sheetBody">
+                    <div class="panel-heading">
+                        <div>
+                            <p class="panel-label">Trip estimate</p>
+                            <h2>Check your fare</h2>
+                        </div>
+                        <p>Choose a route and add current trip conditions.</p>
                     </div>
 
-                    <!-- Form Grid for 2 columns -->
-                    <div class="form-grid">
-                        <!-- Fuel Price -->
-                        <div class="form-group">
-                            <label for="fuelPrice">Fuel Price (₱/liter)</label>
-                            <select id="fuelPrice" class="form-control" required>
-                                <option value="">-- Select --</option>
-                                <option value="₱20-29">₱20-29</option>
-                                <option value="₱30-39">₱30-39</option>
-                                <option value="₱40-49">₱40-49</option>
-                                <option value="₱50-59">₱50-59</option>
-                                <option value="₱60-69">₱60-69</option>
-                                <option value="₱70-79">₱70-79</option>
-                                <option value="₱80-89">₱80-89</option>
-                                <option value="₱90-99">₱90-99</option>
-                                <option value="₱100 & up">₱100 & up</option>
-                            </select>
-                        </div>
+                    <div id="statusMessage" class="status-message" role="status" aria-live="polite" hidden></div>
 
-                        <!-- Time of Day -->
-                        <div class="form-group">
-                            <label for="timeOfDay">Time of Day</label>
-                            <select id="timeOfDay" class="form-control" required>
-                                <option value="">-- Select --</option>
-                                <option value="Rush Hour Morning">Rush Hour Morning</option>
-                                <option value="Off-Peak">Off-Peak</option>
-                                <option value="Rush Hour Evening">Rush Hour Evening</option>
-                            </select>
-                        </div>
-
-                        <!-- Weather -->
-                        <div class="form-group">
-                            <label for="weather">Weather</label>
-                            <select id="weather" class="form-control" required>
-                                <option value="">-- Select --</option>
-                                <option value="Sunny">☀️ Sunny</option>
-                                <option value="Rainy">🌧️ Rainy</option>
-                            </select>
-                        </div>
-
-                        <!-- Vehicle Type -->
-                        <div class="form-group">
-                            <label for="vehicleType">Vehicle Type</label>
-                            <select id="vehicleType" class="form-control" required>
-                                <option value="">-- Select --</option>
-                                <option value="Single Motor">Single Motor</option>
-                                <option value="Tricycle">Tricycle</option>
-                            </select>
-                        </div>
+                    <div id="routeOptionsContainer" class="route-options-container" hidden>
+                        <h3 class="route-options-title">Available routes</h3>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" id="predictBtn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
-                        <span class="btn-text">Predict Fare</span>
-                        <span class="spinner" style="display: none;">⏳</span>
-                    </button>
-                </form>
+                    <form id="fareForm">
+                        <div class="form-group distance-group">
+                            <label for="distance">Selected distance</label>
+                            <div class="input-with-unit">
+                                <input type="text" id="distance" class="form-control" readonly placeholder="Set a destination">
+                                <span>km</span>
+                            </div>
+                        </div>
 
-                <!-- Prediction Result -->
-                <div id="predictionResult" class="prediction-result" style="display: none;">
-                    <h3>Predicted Fare</h3>
-                    <div class="fare-amount" id="fareAmount">₱0.00</div>
-                    <p class="result-note">Estimated fare based on your route and conditions</p>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fuelPrice">Fuel price</label>
+                                <select id="fuelPrice" class="form-control" required>
+                                    <option value="">Select range</option>
+                                    <option value="₱20-29">₱20-29</option>
+                                    <option value="₱30-39">₱30-39</option>
+                                    <option value="₱40-49">₱40-49</option>
+                                    <option value="₱50-59">₱50-59</option>
+                                    <option value="₱60-69">₱60-69</option>
+                                    <option value="₱70-79">₱70-79</option>
+                                    <option value="₱80-89">₱80-89</option>
+                                    <option value="₱90-99">₱90-99</option>
+                                    <option value="₱100 & up">₱100 &amp; up</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="timeOfDay">Time of day</label>
+                                <select id="timeOfDay" class="form-control" required>
+                                    <option value="">Select time</option>
+                                    <option value="Rush Hour Morning">Morning rush</option>
+                                    <option value="Off-Peak">Off-peak</option>
+                                    <option value="Rush Hour Evening">Evening rush</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="weather">Weather</label>
+                                <select id="weather" class="form-control" required>
+                                    <option value="">Select weather</option>
+                                    <option value="Sunny">Sunny</option>
+                                    <option value="Rainy">Rainy</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vehicleType">Vehicle type</label>
+                                <select id="vehicleType" class="form-control" required>
+                                    <option value="">Select vehicle</option>
+                                    <option value="Single Motor">Single motor</option>
+                                    <option value="Tricycle">Tricycle</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="predictBtn" class="btn btn-primary">
+                            <span class="btn-text">Predict fare</span>
+                            <span class="spinner" hidden aria-hidden="true"></span>
+                        </button>
+                    </form>
+
+                    <div id="predictionResult" class="prediction-result" hidden tabindex="-1">
+                        <p class="result-label">Estimated fare</p>
+                        <div class="fare-amount" id="fareAmount">₱0</div>
+                        <p class="result-note">Use this estimate as a fair reference for your selected route.</p>
+                    </div>
+
+                    <div id="errorMessage" class="error-message" role="alert" aria-live="assertive" hidden></div>
+
+                    <details class="help-disclosure">
+                        <summary>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.8 9a2.3 2.3 0 1 1 3.8 1.8c-.8.6-1.6 1.1-1.6 2.4"></path><path d="M12 17h.01"></path></svg>
+                            How to use this tool
+                        </summary>
+                        <ol>
+                            <li>Allow location access or set your origin on the map.</li>
+                            <li>Search for a destination or select one on the map.</li>
+                            <li>Review your route and enter the current conditions.</li>
+                            <li>Select <strong>Predict fare</strong> to see your estimate.</li>
+                        </ol>
+                    </details>
                 </div>
+            </aside>
+        </main>
 
-                <!-- Error Message -->
-                <div id="errorMessage" class="error-message" style="display: none;"></div>
+        <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
 
-                <!-- Instructions -->
-                <div class="instructions">
-                    <h3>How to Use</h3>
-                    <ol>
-                        <li>Allow location access or click "Change Origin" to set your starting point</li>
-                        <li>Search for a destination using the search bar or click on the map</li>
-                        <li>Wait for the route to calculate (blue line)</li>
-                        <li>Fill in all fare parameters</li>
-                        <li>Click "Predict Fare" to get your estimate</li>
-                    </ol>
-                </div>
-            </section>
-        </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>Powered by Random Forest ML | Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors</p>
+        <footer class="site-footer">
+            <span>Fare guidance for Tagum City</span>
+            <span>Map data <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a></span>
         </footer>
     </div>
 
-    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <!-- Custom JS -->
     <script src="app.js"></script>
 </body>
 </html>
