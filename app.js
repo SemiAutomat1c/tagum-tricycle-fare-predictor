@@ -36,7 +36,84 @@ let currentRoute = null;
 let isSettingOrigin = false;
 let availableRoutes = []; // Store all available route alternatives
 let routeLines = []; // Store all route polylines for visualization
+let routeCasingLines = []; // White casing beneath the selected route for map contrast
 let selectedRouteIndex = 0; // Currently selected route index
+let toastTimer = null;
+let routeRequestVersion = 0;
+let predictionRequestVersion = 0;
+let mapResizeTimer = null;
+
+const ICONS = {
+    pin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z"></path><circle cx="12" cy="10" r="2"></circle></svg>',
+    search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>',
+    distance: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>',
+    clock: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>'
+};
+
+function setElementHidden(element, hidden) {
+    if (!element) return;
+    element.hidden = hidden;
+}
+
+function setSearchExpanded(expanded) {
+    const searchInput = document.getElementById('destinationSearch');
+    if (searchInput) {
+        searchInput.setAttribute('aria-expanded', String(expanded));
+    }
+}
+
+function showStatus(message, type = 'info') {
+    const status = document.getElementById('statusMessage');
+    if (!status) return;
+
+    status.textContent = message;
+    status.dataset.type = type;
+    status.hidden = false;
+}
+
+function clearStatus() {
+    const status = document.getElementById('statusMessage');
+    if (!status) return;
+
+    status.textContent = '';
+    status.hidden = true;
+    delete status.dataset.type;
+}
+
+function showToast(message, type = 'info') {
+    const region = document.getElementById('toastRegion');
+    if (!region) return;
+
+    region.replaceChildren();
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.dataset.type = type;
+    toast.textContent = message;
+    region.appendChild(toast);
+
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+        toast.remove();
+    }, 3600);
+}
+
+function setSheetExpanded(expanded) {
+    const sheet = document.getElementById('estimatorSheet');
+    const toggle = document.getElementById('sheetToggle');
+    if (!sheet || !toggle) return;
+
+    sheet.classList.toggle('is-expanded', expanded);
+    toggle.setAttribute('aria-expanded', String(expanded));
+}
+
+function clearSearchSuggestions() {
+    const suggestions = document.getElementById('searchSuggestions');
+    if (!suggestions) return;
+
+    suggestions.replaceChildren();
+    suggestions.hidden = true;
+    setSearchExpanded(false);
+}
 
 // Popular destinations in Tagum City with accurate coordinates
 const DESTINATIONS = [
@@ -66,15 +143,24 @@ function initializeMap() {
     // Create map centered on Tagum City
     map = L.map('map').setView([CONFIG.tagumCity.lat, CONFIG.tagumCity.lng], CONFIG.defaultZoom);
 
-    // Add CartoDB Dark Matter tile layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
     }).addTo(map);
 
     // Add map click event listener for destination selection
     map.on('click', handleMapClick);
+
+    // Leaflet needs an explicit size refresh when the responsive workspace changes.
+    const mapContainer = document.getElementById('map');
+    new ResizeObserver(() => {
+        window.clearTimeout(mapResizeTimer);
+        mapResizeTimer = window.setTimeout(() => {
+            map.invalidateSize();
+            fitSelectedRoute();
+        }, 120);
+    }).observe(mapContainer);
 
     console.log('Map initialized successfully');
 }
@@ -89,7 +175,7 @@ function handleMapClick(e) {
         // Setting new origin
         setOrigin(lat, lng);
         isSettingOrigin = false;
-        document.getElementById('changeOriginBtn').textContent = '📍 Change Origin Point';
+        updateOriginButton(false);
     } else {
         // Setting destination
         setDestination(lat, lng);
@@ -106,6 +192,7 @@ function handleMapClick(e) {
 function detectUserLocation() {
     if ('geolocation' in navigator) {
         console.log('Requesting geolocation permission...');
+        showStatus('Finding your current location...', 'info');
 
         navigator.geolocation.getCurrentPosition(
             // Success callback
@@ -116,11 +203,11 @@ function detectUserLocation() {
                 setOrigin(latitude, longitude);
                 map.setView([latitude, longitude], CONFIG.defaultZoom);
 
-                showNotification('Location detected successfully!', 'success');
+                showNotification('Current location set as your origin.', 'success');
             },
             // Error callback
             (error) => {
-                console.error('Geolocation error:', error);
+                console.info('Geolocation unavailable:', error.message);
 
                 let message = 'Location access denied. ';
                 switch (error.code) {
@@ -135,10 +222,10 @@ function detectUserLocation() {
                         break;
                 }
 
-                alert(message);
-
                 // Default to Tagum City center
                 setOrigin(CONFIG.tagumCity.lat, CONFIG.tagumCity.lng);
+                showStatus(`${message} Tagum City center is set as your origin.`, 'info');
+                showToast('Using Tagum City center as your origin.', 'info');
             },
             // Options
             {
@@ -148,7 +235,7 @@ function detectUserLocation() {
             }
         );
     } else {
-        alert('Geolocation is not supported by your browser. Defaulting to Tagum City center.');
+        showStatus('Location detection is not supported by this browser. Tagum City center is set as your origin.', 'info');
         setOrigin(CONFIG.tagumCity.lat, CONFIG.tagumCity.lng);
     }
 }
@@ -168,11 +255,11 @@ function setOrigin(lat, lng) {
         map.removeLayer(originMarker);
     }
 
-    // Create custom cyan icon for origin
+    // Create custom blue icon for origin
     const blueIcon = L.icon({
         iconUrl: 'data:image/svg+xml;base64,' + btoa(`
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="42" viewBox="0 0 32 42">
-                <path fill="#0ea5e9" stroke="#ffffff" stroke-width="2" d="M16 0C9.373 0 4 5.373 4 12c0 8.25 12 30 12 30s12-21.75 12-30c0-6.627-5.373-12-12-12z"/>
+                <path fill="#2563eb" stroke="#ffffff" stroke-width="2" d="M16 0C9.373 0 4 5.373 4 12c0 8.25 12 30 12 30s12-21.75 12-30c0-6.627-5.373-12-12-12z"/>
                 <circle cx="16" cy="12" r="5" fill="#ffffff"/>
             </svg>
         `),
@@ -221,11 +308,11 @@ function setDestination(lat, lng, name = null) {
         map.removeLayer(destinationMarker);
     }
 
-    // Create custom orange/amber icon for destination
+    // Create custom red icon for destination
     const redIcon = L.icon({
         iconUrl: 'data:image/svg+xml;base64,' + btoa(`
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="42" viewBox="0 0 32 42">
-                <path fill="#f59e0b" stroke="#ffffff" stroke-width="2" d="M16 0C9.373 0 4 5.373 4 12c0 8.25 12 30 12 30s12-21.75 12-30c0-6.627-5.373-12-12-12z"/>
+                <path fill="#dc2626" stroke="#ffffff" stroke-width="2" d="M16 0C9.373 0 4 5.373 4 12c0 8.25 12 30 12 30s12-21.75 12-30c0-6.627-5.373-12-12-12z"/>
                 <circle cx="16" cy="12" r="5" fill="#ffffff"/>
             </svg>
         `),
@@ -278,12 +365,13 @@ async function calculateRoute() {
 
     const origin = originMarker.getLatLng();
     const destination = destinationMarker.getLatLng();
+    const requestVersion = ++routeRequestVersion;
 
     // OSRM expects lon,lat format - request alternative routes
     const url = `${CONFIG.osrmEndpoint}/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?overview=full&geometries=geojson&alternatives=true`;
 
     console.log('Calculating routes...');
-    showNotification('Calculating routes...', 'info');
+    showStatus('Calculating available routes...', 'info');
 
     try {
         const response = await fetch(url);
@@ -304,6 +392,10 @@ async function calculateRoute() {
         }
 
         const data = await response.json();
+
+        if (requestVersion !== routeRequestVersion) {
+            return;
+        }
 
         if (data.code !== 'Ok' || !data.routes || data.routes.length === 0) {
             throw new Error('No route found');
@@ -331,10 +423,12 @@ async function calculateRoute() {
         updateSelectedRoute(0);
 
         if (availableRoutes.length > 1) {
-            showNotification(`Found ${availableRoutes.length} route options - select one below!`, 'success');
+            showNotification(`${availableRoutes.length} routes found. Select the route you want to estimate.`, 'success');
         } else {
-            showNotification(`Route calculated (only 1 route available for these locations)`, 'success');
+            showNotification('Route calculated. Add the current trip conditions to estimate your fare.', 'success');
         }
+
+        setSheetExpanded(true);
 
     } catch (error) {
         console.error('Route calculation error:', error);
@@ -349,6 +443,8 @@ function displayAllRoutes() {
     // Remove existing route lines
     routeLines.forEach(line => map.removeLayer(line));
     routeLines = [];
+    routeCasingLines.forEach(line => map.removeLayer(line));
+    routeCasingLines = [];
 
     if (routeLine) {
         map.removeLayer(routeLine);
@@ -361,25 +457,38 @@ function displayAllRoutes() {
 
         // Different styling for selected vs alternative routes
         const isSelected = index === selectedRouteIndex;
-        const polyline = L.polyline(latLngs, {
-            color: isSelected ? '#f59e0b' : '#475569',
-            weight: isSelected ? 6 : 4,
-            opacity: isSelected ? 0.95 : 0.45,
+        const casing = L.polyline(latLngs, {
+            color: '#ffffff',
+            weight: 11,
+            opacity: isSelected ? 0.96 : 0,
+            interactive: false,
             lineJoin: 'round'
         }).addTo(map);
+        const polyline = L.polyline(latLngs, {
+            color: isSelected ? '#0369a1' : '#64748b',
+            weight: isSelected ? 7 : 4,
+            opacity: isSelected ? 1 : 0.58,
+            lineJoin: 'round'
+        }).addTo(map);
+        polyline.getElement()?.classList.toggle('is-selected-route', isSelected);
 
         // Add click handler to select route
         polyline.on('click', () => selectRoute(index));
 
+        routeCasingLines.push(casing);
         routeLines.push(polyline);
     });
 
-    // Fit map bounds to show the selected route
-    if (routeLines[selectedRouteIndex]) {
-        map.fitBounds(routeLines[selectedRouteIndex].getBounds(), {
-            padding: [50, 50]
-        });
-    }
+    fitSelectedRoute();
+}
+
+function fitSelectedRoute() {
+    if (!map || !routeLines[selectedRouteIndex]) return;
+
+    map.fitBounds(routeLines[selectedRouteIndex].getBounds(), {
+        padding: [32, 32],
+        maxZoom: 16
+    });
 }
 
 /**
@@ -395,11 +504,15 @@ function selectRoute(index) {
     // Update route visualization
     routeLines.forEach((line, i) => {
         const isSelected = i === index;
-        line.setStyle({
-            color: isSelected ? '#f59e0b' : '#475569',
-            weight: isSelected ? 6 : 4,
-            opacity: isSelected ? 0.95 : 0.45
+        routeCasingLines[i].setStyle({
+            opacity: isSelected ? 0.96 : 0
         });
+        line.setStyle({
+            color: isSelected ? '#0369a1' : '#64748b',
+            weight: isSelected ? 7 : 4,
+            opacity: isSelected ? 1 : 0.58
+        });
+        line.getElement()?.classList.toggle('is-selected-route', isSelected);
 
         // Bring selected route to front
         if (isSelected) {
@@ -410,6 +523,7 @@ function selectRoute(index) {
     // Update UI
     updateSelectedRoute(index);
     updateRouteSelector();
+    fitSelectedRoute();
 }
 
 /**
@@ -434,15 +548,20 @@ function updateRouteSelector() {
     if (!container) return;
 
     // Clear existing options
-    container.innerHTML = '';
+    container.replaceChildren();
 
     // Hide if only one route
     if (availableRoutes.length <= 1) {
-        container.style.display = 'none';
+        container.hidden = true;
         return;
     }
 
-    container.style.display = 'block';
+    container.hidden = false;
+
+    const title = document.createElement('h3');
+    title.className = 'route-options-title';
+    title.textContent = 'Available routes';
+    container.appendChild(title);
 
     // Create route option cards
     availableRoutes.forEach((route, index) => {
@@ -450,8 +569,10 @@ function updateRouteSelector() {
         const durationMin = Math.round(route.duration / 60);
         const isSelected = index === selectedRouteIndex;
 
-        const optionCard = document.createElement('div');
+        const optionCard = document.createElement('button');
+        optionCard.type = 'button';
         optionCard.className = `route-option ${isSelected ? 'selected' : ''}`;
+        optionCard.setAttribute('aria-pressed', String(isSelected));
         optionCard.innerHTML = `
             <div class="route-option-header">
                 <span class="route-option-title">Route ${index + 1}</span>
@@ -459,16 +580,11 @@ function updateRouteSelector() {
             </div>
             <div class="route-option-details">
                 <div class="route-detail">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+                    ${ICONS.distance}
                     <span>${distanceKm} km</span>
                 </div>
                 <div class="route-detail">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12 6 12 12 16 14"/>
-                    </svg>
+                    ${ICONS.clock}
                     <span>${durationMin} min</span>
                 </div>
             </div>
@@ -517,8 +633,8 @@ async function handlePrediction(e) {
     e.preventDefault();
 
     // Hide previous results/errors
-    document.getElementById('predictionResult').style.display = 'none';
-    document.getElementById('errorMessage').style.display = 'none';
+    setElementHidden(document.getElementById('predictionResult'), true);
+    setElementHidden(document.getElementById('errorMessage'), true);
 
     // Validate distance is set
     const distance = document.getElementById('distance').value;
@@ -552,8 +668,10 @@ async function handlePrediction(e) {
     const spinner = predictBtn.querySelector('.spinner');
 
     predictBtn.disabled = true;
-    btnText.style.display = 'none';
-    spinner.style.display = 'inline-block';
+    btnText.hidden = true;
+    spinner.hidden = false;
+    showStatus('Calculating your fare estimate...', 'info');
+    const requestVersion = ++predictionRequestVersion;
 
     try {
         // Call backend API
@@ -582,6 +700,10 @@ async function handlePrediction(e) {
 
         const result = await response.json();
 
+        if (requestVersion !== predictionRequestVersion) {
+            return;
+        }
+
         if (!result.predicted_fare) {
             throw new Error('Invalid response from server');
         }
@@ -599,10 +721,14 @@ async function handlePrediction(e) {
             showError(`Prediction failed: ${error.message}`);
         }
     } finally {
+        if (requestVersion !== predictionRequestVersion) {
+            return;
+        }
+
         // Reset button state
         predictBtn.disabled = false;
-        btnText.style.display = 'inline';
-        spinner.style.display = 'none';
+        btnText.hidden = false;
+        spinner.hidden = true;
     }
 }
 
@@ -616,10 +742,13 @@ function displayPrediction(fare) {
 
     // Display as whole number (no decimals for tricycle fares)
     fareAmount.textContent = `₱${Math.round(fare)}`;
-    resultDiv.style.display = 'block';
+    resultDiv.hidden = false;
+    clearStatus();
+    showToast('Fare estimate ready.', 'success');
 
     // Scroll to result
     resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    resultDiv.focus({ preventScroll: true });
 
     console.log(`Prediction displayed: ₱${Math.round(fare)}`);
 }
@@ -631,7 +760,8 @@ function displayPrediction(fare) {
 function showError(message) {
     const errorDiv = document.getElementById('errorMessage');
     errorDiv.textContent = message;
-    errorDiv.style.display = 'block';
+    errorDiv.hidden = false;
+    showToast(message, 'error');
 
     // Scroll to error
     errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -643,9 +773,9 @@ function showError(message) {
  * @param {string} type - Notification type (success, info, error)
  */
 function showNotification(message, type = 'info') {
-    // Simple console log for now
-    // Can be enhanced with toast notifications
     console.log(`[${type.toUpperCase()}] ${message}`);
+    showStatus(message, type);
+    showToast(message, type);
 }
 
 // ============================================
@@ -658,11 +788,9 @@ function showNotification(message, type = 'info') {
  */
 async function filterDestinations(searchText) {
     const suggestionsContainer = document.getElementById('searchSuggestions');
-    const searchInput = document.getElementById('destinationSearch');
 
     if (!searchText || searchText.trim().length < 2) {
-        suggestionsContainer.style.display = 'none';
-        searchInput.style.borderRadius = '8px';
+        clearSearchSuggestions();
         return;
     }
 
@@ -680,31 +808,57 @@ async function filterDestinations(searchText) {
         return;
     }
 
-    // Display suggestions
-    suggestionsContainer.innerHTML = matches.map(dest => `
-        <div class="suggestion-item" data-lat="${dest.lat}" data-lng="${dest.lng}" data-name="${dest.name}">
-            <span class="suggestion-icon">📍</span>
-            <div class="suggestion-text">
-                <span class="suggestion-name">${dest.name}</span>
-                <span class="suggestion-category">${dest.category}</span>
-            </div>
-        </div>
-    `).join('');
+    renderDestinationSuggestions(matches, ICONS.pin);
+}
 
-    suggestionsContainer.style.display = 'block';
-    searchInput.style.borderRadius = '8px 8px 0 0';
+function renderDestinationSuggestions(destinations, icon) {
+    const suggestionsContainer = document.getElementById('searchSuggestions');
+    suggestionsContainer.replaceChildren();
 
-    // Add click listeners to suggestions
-    const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
-    suggestionItems.forEach(item => {
-        item.addEventListener('click', function () {
-            const lat = parseFloat(this.getAttribute('data-lat'));
-            const lng = parseFloat(this.getAttribute('data-lng'));
-            const name = this.getAttribute('data-name');
+    destinations.forEach(destination => {
+        const option = document.createElement('button');
+        option.type = 'button';
+        option.className = 'suggestion-item';
+        option.setAttribute('role', 'option');
+        option.dataset.lat = destination.lat;
+        option.dataset.lng = destination.lng;
+        option.dataset.name = destination.name;
 
-            selectDestination(lat, lng, name);
+        const iconContainer = document.createElement('span');
+        iconContainer.className = 'suggestion-icon';
+        iconContainer.innerHTML = icon;
+
+        const text = document.createElement('span');
+        text.className = 'suggestion-text';
+
+        const name = document.createElement('span');
+        name.className = 'suggestion-name';
+        name.textContent = destination.name;
+
+        const category = document.createElement('span');
+        category.className = 'suggestion-category';
+        category.textContent = destination.category;
+
+        text.append(name, category);
+        option.append(iconContainer, text);
+        option.addEventListener('click', () => {
+            selectDestination(Number(destination.lat), Number(destination.lng), destination.name);
         });
+        suggestionsContainer.appendChild(option);
     });
+
+    suggestionsContainer.hidden = false;
+    setSearchExpanded(true);
+}
+
+function renderSearchMessage(message) {
+    const suggestionsContainer = document.getElementById('searchSuggestions');
+    const status = document.createElement('div');
+    status.className = 'search-empty';
+    status.textContent = message;
+    suggestionsContainer.replaceChildren(status);
+    suggestionsContainer.hidden = false;
+    setSearchExpanded(true);
 }
 
 /**
@@ -712,45 +866,26 @@ async function filterDestinations(searchText) {
  * @param {string} query - Search query
  */
 async function searchNominatim(query) {
-    const suggestionsContainer = document.getElementById('searchSuggestions');
-    const searchInput = document.getElementById('destinationSearch');
-
-    suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">Searching...</div>';
-    suggestionsContainer.style.display = 'block';
-    searchInput.style.borderRadius = '8px 8px 0 0';
+    renderSearchMessage('Searching nearby destinations...');
 
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ', Tagum City, Philippines')}&format=json&limit=5`);
         const results = await response.json();
 
         if (results.length === 0) {
-            suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">No destinations found</div>';
+            renderSearchMessage('No destinations found. Try a different search or select a point on the map.');
             return;
         }
 
-        suggestionsContainer.innerHTML = results.map(result => `
-            <div class="suggestion-item" data-lat="${result.lat}" data-lng="${result.lon}" data-name="${result.display_name.split(',')[0]}">
-                <span class="suggestion-icon">🔍</span>
-                <div class="suggestion-text">
-                    <span class="suggestion-name">${result.display_name.split(',')[0]}</span>
-                    <span class="suggestion-category">${result.type || 'Location'}</span>
-                </div>
-            </div>
-        `).join('');
-
-        const suggestionItems = suggestionsContainer.querySelectorAll('.suggestion-item[data-lat]');
-        suggestionItems.forEach(item => {
-            item.addEventListener('click', function () {
-                const lat = parseFloat(this.getAttribute('data-lat'));
-                const lng = parseFloat(this.getAttribute('data-lng'));
-                const name = this.getAttribute('data-name');
-
-                selectDestination(lat, lng, name);
-            });
-        });
+        renderDestinationSuggestions(results.map(result => ({
+            lat: result.lat,
+            lng: result.lon,
+            name: result.display_name.split(',')[0],
+            category: result.type || 'Location'
+        })), ICONS.search);
     } catch (error) {
         console.error('Nominatim search error:', error);
-        suggestionsContainer.innerHTML = '<div class="suggestion-item" style="cursor: default; color: var(--text-secondary);">Search error. Try again.</div>';
+        renderSearchMessage('Destination search is unavailable. Try again or select a point on the map.');
     }
 }
 
@@ -772,17 +907,16 @@ async function geocodeAndSetDestination(searchQuery, displayName) {
             const lng = parseFloat(results[0].lon);
 
             searchInput.value = displayName;
-            searchInput.style.borderRadius = '8px';
-            suggestionsContainer.style.display = 'none';
+            clearSearchSuggestions();
 
             setDestination(lat, lng, displayName);
             map.setView([lat, lng], 15);
         } else {
-            alert('Could not find exact location. Please try clicking on the map.');
+            showError('Could not find that location. Try selecting a point on the map.');
         }
     } catch (error) {
         console.error('Geocoding error:', error);
-        alert('Error finding location. Please try again.');
+        showError('Destination search is unavailable. Try selecting a point on the map.');
     }
 }
 
@@ -794,14 +928,11 @@ async function geocodeAndSetDestination(searchQuery, displayName) {
  */
 function selectDestination(lat, lng, name) {
     const searchInput = document.getElementById('destinationSearch');
-    const suggestionsContainer = document.getElementById('searchSuggestions');
-
     // Update search input
     searchInput.value = name;
-    searchInput.style.borderRadius = '8px';
 
     // Hide suggestions
-    suggestionsContainer.style.display = 'none';
+    clearSearchSuggestions();
 
     // Set destination on map
     setDestination(lat, lng, name);
@@ -843,7 +974,7 @@ function handleSearchKeyboard(e) {
             items[0].click();
         }
     } else if (e.key === 'Escape') {
-        suggestionsContainer.style.display = 'none';
+        clearSearchSuggestions();
     }
 }
 
@@ -857,18 +988,30 @@ function handleSearchKeyboard(e) {
 function handleChangeOrigin() {
     if (!isSettingOrigin) {
         isSettingOrigin = true;
-        document.getElementById('changeOriginBtn').textContent = '📍 Click map to set origin...';
-        showNotification('Click on the map to set a new origin point', 'info');
+        updateOriginButton(true);
+        showNotification('Select a point on the map to set your origin.', 'info');
     } else {
         isSettingOrigin = false;
-        document.getElementById('changeOriginBtn').textContent = '📍 Change Origin Point';
+        updateOriginButton(false);
     }
+}
+
+function updateOriginButton(isActive) {
+    const button = document.getElementById('changeOriginBtn');
+    const label = document.querySelector('#changeOriginBtn span');
+    if (label) {
+        label.textContent = isActive ? 'Select origin on map' : 'Set origin';
+    }
+    button.setAttribute('aria-label', isActive ? 'Cancel origin selection' : 'Set origin');
 }
 
 /**
  * Handle "Reset" button click
  */
 function handleReset() {
+    routeRequestVersion += 1;
+    predictionRequestVersion += 1;
+
     // Remove destination marker
     if (destinationMarker) {
         map.removeLayer(destinationMarker);
@@ -881,7 +1024,15 @@ function handleReset() {
         routeLine = null;
     }
 
+    routeLines.forEach(line => map.removeLayer(line));
+    routeLines = [];
+    routeCasingLines.forEach(line => map.removeLayer(line));
+    routeCasingLines = [];
+    availableRoutes = [];
+    selectedRouteIndex = 0;
     currentRoute = null;
+    isSettingOrigin = false;
+    updateOriginButton(false);
 
     // Clear destination coordinates
     document.getElementById('destCoords').textContent = 'Not set';
@@ -891,14 +1042,22 @@ function handleReset() {
 
     // Clear search input
     document.getElementById('destinationSearch').value = '';
-    document.getElementById('searchSuggestions').style.display = 'none';
+    clearSearchSuggestions();
 
     // Hide prediction result
-    document.getElementById('predictionResult').style.display = 'none';
-    document.getElementById('errorMessage').style.display = 'none';
+    setElementHidden(document.getElementById('predictionResult'), true);
+    setElementHidden(document.getElementById('errorMessage'), true);
+    const routeOptionsContainer = document.getElementById('routeOptionsContainer');
+    routeOptionsContainer.replaceChildren();
+    setElementHidden(routeOptionsContainer, true);
+    clearStatus();
 
     // Reset form
     document.getElementById('fareForm').reset();
+    const predictBtn = document.getElementById('predictBtn');
+    predictBtn.disabled = false;
+    predictBtn.querySelector('.btn-text').hidden = false;
+    predictBtn.querySelector('.spinner').hidden = true;
 
     // Center map on origin if exists
     if (originMarker) {
@@ -906,7 +1065,7 @@ function handleReset() {
     }
 
     console.log('Route reset');
-    showNotification('Route cleared', 'info');
+    showNotification('Route cleared. Search for a new destination when you are ready.', 'info');
 }
 
 // ============================================
@@ -926,6 +1085,11 @@ function setupEventListeners() {
     // Reset button
     document.getElementById('resetBtn').addEventListener('click', handleReset);
 
+    document.getElementById('sheetToggle').addEventListener('click', function () {
+        const sheet = document.getElementById('estimatorSheet');
+        setSheetExpanded(!sheet.classList.contains('is-expanded'));
+    });
+
     // Destination search input
     const searchInput = document.getElementById('destinationSearch');
     searchInput.addEventListener('input', function (e) {
@@ -938,10 +1102,8 @@ function setupEventListeners() {
     // Hide suggestions when clicking outside
     document.addEventListener('click', function (e) {
         const searchContainer = document.querySelector('.search-container');
-        const searchInput = document.getElementById('destinationSearch');
         if (searchContainer && !searchContainer.contains(e.target)) {
-            document.getElementById('searchSuggestions').style.display = 'none';
-            searchInput.style.borderRadius = '8px';
+            clearSearchSuggestions();
         }
     });
 
